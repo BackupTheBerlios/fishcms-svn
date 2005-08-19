@@ -1,0 +1,115 @@
+<?
+//****************************************************************************
+//* File:	articles.php
+//* Author:	G.A. Heath
+//* Date: 	August 1, 2005.
+//* License:	GNU Public License (GPL)
+//* Last edit:	August 17, 2005
+//****************************************************************************
+
+//===common code that should be run each time=================================
+//***includes*****************************************************************
+include "common.inc.php";
+
+//***template loads***********************************************************
+$MAIN=loadtmplate("main");
+$ARTICLES=loadtmplate ("articles");
+
+//===Functions================================================================
+//*** function showarticles ($category)***************************************
+function showarticles ($category) {
+global $HTTP_GET_VARS, $ARTICLES, $list_prefix, $MAIN;
+$CONTENT="";
+   if (isset ($HTTP_GET_VARS['perpage']))
+      $perpage=$HTTP_GET_VARS['perpage'];
+   else
+      $perpage=3;
+//lets see if the user has specified to show all requests on a single page.
+   if (isset ($HTTP_GET_VARS['onepage']))
+      $onepage=1;
+   else
+      $onepage=0;
+//lets see what page we are on
+   if (!isset ($HTTP_GET_VARS['page']))
+      $page=1;
+   else
+      $page=$HTTP_GET_VARS['page'];
+//lets calculate our start position for our query if needed.
+   $start=($page-1)*$perpage;
+ //lets calculate our query
+   $sql="SELECT * FROM ".$list_prefix."articles";
+   if ($category != 0)
+      $sql.=" WHERE category = '". $category."'";
+   if ($onepage == 0)
+      $sql.=" LIMIT ".$start." , ".$perpage.";";
+  else
+      $sql.=";";
+//now lets show the prayerlist entries.
+   $result=mysql_query($sql);
+   $rows = mysql_num_rows($result);
+   if ($rows != 0) {
+      $i=0;
+      while ($i < $rows) {
+         //lets fetch our prayer request from the database.
+         $row = mysql_fetch_array($result);
+         $postedby=getuser ($row['posted_by']);
+         //lets insert the prayerrequest into our working copy of this template.
+         $WORK=insert_into_template ($ARTICLES, "{ARTICLETITLE}", stripslashes ($row['article_title']));
+         $WORK=insert_into_template ($WORK, "{TEASER}", stripslashes ($row['teaser']));
+         $WORK=insert_into_template ($WORK, "{ARTICLEID}", $row['id']);
+         $WORK=insert_into_template ($WORK, "{POSTEDBY}", $postedby);
+         $WORK=insert_into_template ($WORK, "{BYLINE}", $row['byline']);
+         $WORK=insert_into_template ($WORK, "{DATE}", date ("m/d/Y", $row['date']));
+         $WORK=insert_into_template ($WORK, "{CATEGORY}", getcatname ($row['category']));
+         $i++;
+         //now lets add this request to the CONTENT.
+         $CONTENT.=$WORK;
+      }
+      $sql="SELECT * FROM ".$list_prefix."articles;";
+      $result=mysql_query($sql);
+      $rows = mysql_num_rows($result);
+      $pages=($rows-($rows%$perpage))/$perpage; //this is the number of complete pages.
+      if (($rows%$perpage) > 0)
+         $pages++; //this will take care of incomplete pages.
+      //lets list a previous page link if needed.
+      if (($pages > 1) && ($onepage == 0)) {
+         $i=0;
+         if ($page != 1)
+            $CONTENT.="<a href='articles.php?page".($page-1)."'>prev</a> \r\n";
+         //lets list all pages a user can click on.
+         while ($i < $pages) {
+            $i++;
+            if ($i != $page)
+               $CONTENT.="<a href='articles.php?page=".$i."'>".$i."</a> \r\n";
+            else
+               $CONTENT.=$i." ";
+         }
+         //lets create a next page link if needed
+         if ($page != $pages)
+            $CONTENT.="<a href='articles.php?page=".($page+1)."'>next</a>\r\n";
+         $CONTENT.="<div align=\"right\"><a href='articles.php?onepage=1'>Show all requests on one page.</a></div><br />\r\n";
+      }
+   } else {
+      $CONTENT.="There are no active articles at this time.<BR>\r\n";
+   }
+   $WORK=insert_into_template ($MAIN, "{CONTENT}", $CONTENT);
+   $WORK=filltemplate ($WORK, "Articles");
+   //when we output this lets make sure that the output is stripped of any template elements that are not used.
+   printf ("%s", striptemplate ($WORK));
+
+}
+//===Main code================================================================
+//check to see if the user is logged in.
+$user = getuserinfo ();
+   if (0 == strcmp ($user['email'] , "anonymous"))
+      $logged_in = 0;
+   else
+      $logged_in = 1;
+   //start main code here.
+   //lets handle the user interaction here.
+   if (isset($HTTP_GET_VARS['category']))
+      $category=$HTTP_GET_VARS['category'];
+   else
+      $category=0;
+   showarticles ($category);
+?>

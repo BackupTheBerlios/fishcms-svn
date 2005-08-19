@@ -1,0 +1,17 @@
+August 7, 2005:	  revised phpbbauth.php to pass more info regarding the user back.
+		  Revised all files that depend on phpbbauth.php to work with the revised version.
+		  Revised all scripts that depend on gpl-config.php to use fishcms-config.php
+August 13, 2005:  Minor code revisions, APPLINKS, NAVLINKS, TITLE, COPYRIGHT, SITENAME, SITEDESCRIPTION moved into one function.
+August 14, 2005:  Further template work, login refinement, and cleanup to install.php
+		  Began to get the administrator panel working.
+August 15, 2005:  Finished up the category page in the admin panel.
+		  Wrote the templates page in the admin panel.
+		  Started the general configuration page.
+August 16, 2005:  Finished the general configuration page.
+August 17, 2005:  Added category support to all news and article pages and templates.
+		  Started and finished the article and news pages in the admin sectio.
+		  Started and finished links support in admin panel.
+		  Started and finished links support in main code body.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+August 17, 2005:  RELEASED FishCMS Version 0.1.0 (minnow)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

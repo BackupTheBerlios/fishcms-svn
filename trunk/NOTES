@@ -1,0 +1,22 @@
+Note from project leader.
+In this file you will find my mindless ramblings, thoughts, ect.
+What you find in here may be usefull, may be pointless, but can not be taken
+to mean that whats in here will happen officially.
+
+
+
+
+Project: FishCMS
+Goal: simple, easy to deploy, easy to use CMS with features for christian websites.
+
+Planned Features:
+Easy intergration with phpBB 2.0   (phpBB2 will be a dependancy until atleast V0.3.0).
+Simple template engine (templates can be created from a single html page);
+
+Categories.
+With FishCMS you will create categories once, and then they will be
+available accross the entire site.  You will not have to create a category
+for news then create it again for links, and once again for articles.
+
+planned files to do:
+   admin/custom.php	will allow the admin to create blocks, custom php, and html files ( targeted for V0.3.0).

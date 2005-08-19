@@ -1,0 +1,45 @@
+
+####ROADMAP:
+
+*******before first (0.1.0) release do************************************************
+*flesh out the admin panel.
+*clean up the installer a bit (have install directory and common.inc.php will call the installer if not installed).
+*common.inc.php will die if installer remains.
+*add a links page
+*add support for showing news/article category in news.php, news.mod.php, news_item.php, article.php, articles.php, article.mod.php
+*and clean the themes up a bit.
+
+*******before 0.2.0 release do************************************************
+add support for blocks
+calendar block
+add verse of the day block
+parse all input to prevent buffer overflows.
+
+*******before 0.3.0 release do************************************************
+add native user/admin database table (keep phpbb intergration).
+add support for atleast 1 other forum package's user table/db.
+add support for custom pages and blocks
+include new theme(s)
+
+*******before 0.4.0 release do************************************************
+add installer tool (install upgrades, blocks, themes, modules, ect.)
+add rss and/or atom feeds for the prayerlist and index.page.
+
+******************************************************************************
+
+Work in progress.
+
+[admin panel]
+   create admin panel (in progress).
+
+
+[new functions/pages]
+   create links page.
+   create admin tool for making custom pages.
+   create .inc.php file for blocks.
+   create a calender block.
+   create a verse of the day block.
+   create a biblegateway search block.
+
+[all page generating files]
+   add support for above mentioned blocks to filltemplate in common.inc.php

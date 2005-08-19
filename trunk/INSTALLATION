@@ -1,0 +1,48 @@
+!!!INTRODUCTION!!!
+Currently FishCMS lacks its own user authentication mechanism, but thats ok
+because we can use phpBB2's user authentication.  At this time FishCMS
+REQUIRES phpBB2!!!
+
+!!!SOFTWARE REQUIREMENTS!!!
+MySQL 4.0.x or 4.1.x
+PHP4
+Apache 1.3.x or 2.0.x
+phpBB 2.0.x (LATEST VERSION IS HIGHLY RECOMENDED)
+
+!!!INSTALLATION INSTRUCTIONS!!!
+so here's how you install FishCMS.
+Step 1: download and install the latest release of phpBB2.
+   NOTE: you can install phpBB2 on a subdomain, but we recomend using a
+         subdirectory such as /forums/ if you plan to follow step 2.
+Step 2: download, install, and configure Coppermine Photo gallery (optional).
+Step 3: download and install FishCMS.
+Step 4: edit the phpbbauth.php file in your FishCMS directory.
+   NOTE: You should only need to change the $table_prefix and $path variables.
+step 5: fine tune your configuration, add content, ect.
+
+
+!!!IMPORTANT PRIVACY INFORMATION!!!
+In the fish cms installer there are two options that you should be aware of.
+Please note that your email address will not be sold, shared, or spammed by
+the FishCMS developers.
+
+The first option is to send an email to the developers informing them of
+your site.  the message sent by FishCMS will have the following information.
+From: [email provided during installation.]
+X-Mailer: FishCMS.
+Return-Path: [email provided during installation.]
+Subject: A new FishCMS site!
+Body: A new FishCMS site has been installed.
+      The url is [your website's url] 
+
+The second option is to join the FishCMS mailing list.  This mailing list is
+one way, from the developers to you and will have only security and release
+related information.  If you join the mailing list you will recieve a
+confirmation email from the mailing list program in your inbox.  The message
+sent by FishCMS will have the following information.
+From: [email provided during installation.]
+X-Mailer: FishCMS.
+Return-Path: [email provided during installation.]
+Subject: Suscribe
+Body: [the body is empty].
+

@@ -1,0 +1,7 @@
+[modules]
+in the database just the first part of the name will be stored.
+the module will be loaded and run via:
+   include_once $row['modulename']."mod.php";
+
+the module can only expect the following variables to be set.
+   $perpage		(this is the number of items to show) on this page.
