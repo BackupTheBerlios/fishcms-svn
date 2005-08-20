@@ -2,7 +2,7 @@
 //****************************************************************************
 //* File:	admin/index.php
 //* Author:	G.A. Heath
-//* Date: 	August 17, 2005.
+//* Date: 	August 19, 2005.
 //* License:	GNU Public License (GPL)
 //* Last edit:	August 17, 2005
 //****************************************************************************
@@ -22,7 +22,7 @@ function loginbox () {
 }
 //***function content ()******************************************************
 function content () {
-$MAIN=loadtmplate ("main");
+$MAIN=loadadmintmplate ("main");
 $CONTENT="
    <p>
       For now there isn't much here in the way of content.  please keep in mind

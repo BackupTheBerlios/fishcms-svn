@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 8, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 12, 2005
+//* Last edit:	August 19, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================

@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 17, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 17, 2005
+//* Last edit:	August 19, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -115,8 +115,8 @@ global $list_prefix;
 //***function content ()******************************************************
 function content (){
 global $HTTP_POST_VARS, $HTTP_GET_VARS, $list_prefix;
-$MAIN=loadtmplate ("main");
-$LINKS=loadtmplate("links");
+$MAIN=loadadmintmplate ("main");
+$LINKS=loadadmintmplate("links");
    $WORK=$LINKS;
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "select")) { //if we are to edit a link
    //lets get the links from the db

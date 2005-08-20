@@ -31,6 +31,9 @@
          </ol>
       </div>
    </div>
+   <div id="blocks">
+      {BLOCKS1}
+   </div>
    <div id="ctables">
       {CONTENT}
    </div>

@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 14, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 15, 2005
+//* Last edit:	August 19, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -24,8 +24,8 @@ function loginbox () {
 //***function content ()******************************************************
 function content () {
 global $HTTP_POST_VARS, $HTTP_GET_VARS, $list_prefix;
-$MAIN=loadtmplate ("main");
-$CATEGORIES=loadtmplate("categories");
+$MAIN=loadadmintmplate ("main");
+$CATEGORIES=loadadmintmplate("categories");
    //we can choose to edit, add, or delete a category.
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "delete")) {
       if (isset ($HTTP_POST_VARS['delete_yes']))

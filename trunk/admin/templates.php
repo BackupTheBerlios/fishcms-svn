@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 15, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 15, 2005
+//* Last edit:	August 19, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -44,8 +44,8 @@ $template_dir="../templates/";
 //***function content ()******************************************************
 function content () {
 global $HTTP_POST_VARS, $HTTP_GET_VARS, $list_prefix;
-$MAIN=loadtmplate ("main");
-$TEMPLATES=loadtmplate("templates");
+$MAIN=loadadmintmplate ("main");
+$TEMPLATES=loadadmintmplate("templates");
    if (isset ($HTTP_GET_VARS['set'])) { //if we are supposed to set the template
       //set the template here
       $sql="UPDATE `".$list_prefix ."config` SET `value` = '".$HTTP_POST_VARS['template']."' WHERE `key` = 'template';";
