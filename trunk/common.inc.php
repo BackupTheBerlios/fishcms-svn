@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 7, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	August 19, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -12,7 +12,7 @@
 include ("fishcms-config.php");
 //lets see if the config is valid, if not lets start the installer.
 if (!isset ($db_host)) {
-$action="/install.php";
+$action="install/install.php";
 $redirect="
 <html>
    <head>
@@ -28,9 +28,9 @@ $redirect="
    die ($redirect);
 }
 //lets see if the installer remains. if so we die.
-$installer="./install.php";
+$installer="install/";
 if (file_exists($installer))
-   die ("SECURITY ERROR: You must remove the installer program from the system!");
+   die ("SECURITY ERROR: You must remove the directory: install/");
 //Lets access the database
 @ $db=mysql_pconnect ($db_host, $db_username, $db_password);
 if (!$db)
@@ -130,6 +130,34 @@ $APPLINKS="";
    return $APPLINKS;
 }
 
+//***function getblocks ($blockset)*******************************************
+function getblocks ($blockset) {
+global $list_prefix;
+$BLOCK_TEMPLATE=loadtmplate ("block");
+   $sql="SELECT * FROM `".$list_prefix."blocks` WHERE `blockset` = '".$blockset."' ORDER BY `order`;";
+   $result=mysql_query($sql);
+   if ($result)
+      $rows = mysql_num_rows($result);
+   else
+      $rows=0;
+   $i=0;
+   $CONTENT="";
+   while ($i < $rows) {
+      $row=mysql_fetch_array($result);
+      if ($row['name'] == "test"){ 
+         $WORK=insert_into_template ($BLOCK_TEMPLATE, "{BLOCK_TITLE}", "TEST BLOCK");
+         $WORK=insert_into_template ($WORK, "{BLOCK_CONTENT}", "this is a test block");
+      } else {
+         include "blocks/".$row['name'].".php";
+         $WORK=insert_into_template ($BLOCK_TEMPLATE, "{BLOCK_TITLE}", $BLOCK['title']);
+         $WORK=insert_into_template ($WORK, "{BLOCK_CONTENT}", $BLOCK['content']);
+      }
+      $CONTENT.=$WORK;
+      $i++;
+   }
+   return $CONTENT;
+}
+
 //***function filltemplate ($TEMPLATE, $TITLE)********************************
 function filltemplate ($TEMPLATE, $TITLE) { //this function will consolidate code in most pages.
 global $list_prefix;
@@ -178,7 +206,16 @@ global $list_prefix;
    } else
       $VALUE="FishCMS is licensed under the GNU Public License<BR>\n&copy; 2005 by G.A. Heath and Michael Rice.";
    $WORK=insert_into_template ($WORK, "{EMAIL}", $VALUE);
-
+//lets process the blocks
+//for now we will support 4 sets of blocks in the templates, later this will be dynamic.
+   //block 1
+   $WORK=insert_into_template ($WORK, "{BLOCKS1}", getblocks(1));
+   //block 2
+   $WORK=insert_into_template ($WORK, "{BLOCKS2}", getblocks(2));
+   //block 3
+   $WORK=insert_into_template ($WORK, "{BLOCKS3}", getblocks(3));
+   //block 4
+   $WORK=insert_into_template ($WORK, "{BLOCKS4}", getblocks(4));
 //   $WORK=insert_into_template ($WORK, "", );
    return $WORK;
 }

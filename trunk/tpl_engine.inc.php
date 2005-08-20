@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 31, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	August 19, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -29,6 +29,24 @@ global $templatedir;
 //lets return the template, failing at that we will return an empty string.
    if ($file= @fopen($templatedir.$specific.".tpl", "r"))
       return fread ($file, filesize($templatedir.$specific.".tpl"));
+   else
+      return "";
+}
+//***function loadblocktmplate ($specific)************************************
+function loadblocktmplate ($specific) {
+global $templatedir;
+//lets return the template, failing at that we will return an empty string.
+   if ($file= @fopen("../".$templatedir."blocks/".$specific.".tpl", "r"))
+      return fread ($file, filesize("../".$templatedir."blocks/".$specific.".tpl"));
+   else
+      return "";
+}
+//***function loadadmintmplate ($specific)************************************
+function loadadmintmplate ($specific) {
+global $templatedir;
+//lets return the template, failing at that we will return an empty string.
+   if ($file= @fopen("../".$templatedir."admin/".$specific.".tpl", "r"))
+      return fread ($file, filesize("../".$templatedir."admin/".$specific.".tpl"));
    else
       return "";
 }
