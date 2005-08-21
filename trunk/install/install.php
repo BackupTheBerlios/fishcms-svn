@@ -121,6 +121,8 @@ $preset_values_sql['links3']="INSERT INTO ".$list_prefix."links VALUES ('', '', 
 $preset_values_sql['links4']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Articles', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install.php", "articles.php", $_SERVER['PHP_SELF'])."', '4');";
 $preset_values_sql['links5']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Links', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install.php", "links.php", $_SERVER['PHP_SELF'])."', '5');";
 $preset_values_sql['category']="INSERT INTO ".$list_prefix."category VALUES ('', 'General', '1');";
+$preset_values_sql['blocks1']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'verse_of_the_day', '1', '1');";
+$preset_values_sql['blocks2']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'bible_gateway_search', '1', '2');";
 
    //if we have our values lets test the db.
    if ((isset ($HTTP_POST_VARS['db_host'])) && (isset ($HTTP_POST_VARS['db_username'])) && (isset ($HTTP_POST_VARS['db_password'])) && (isset ($HTTP_POST_VARS['db_database'])) && (isset ($HTTP_POST_VARS['list_prefix']))) {

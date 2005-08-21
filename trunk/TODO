@@ -10,7 +10,7 @@
 *and clean the themes up a bit.
 
 *******before 0.2.0 release do************************************************
-add support for blocks (in progress, need to add support in admin panel)
+*add support for blocks
 calendar block
 *add verse of the day block
 parse all input to prevent buffer overflows.
