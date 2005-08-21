@@ -27,6 +27,7 @@
             <a href='articles.php'>Articles</a><BR>
             <a href='news.php'>News</a><BR>
             <a href='links.php'>Links</a><BR>
+            <a href='blocks.php'>Blocks</a><BR>
          </td>
          <td valign="top">
             <div align="center">
