@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 9, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	August 23, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -45,14 +45,18 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $HTTP_GET_VARS, $MAIN;
    if (isset ($HTTP_POST_VARS['anonymous'])) {
       $logged_in=1;
       $email='anonymous';
-   } else
+      $username='anonymous';
+   } else {
       $email=$user['email'];
+      $username=$user['username'];
+   }
 //lets accept request from users who are not cookied but are logging in.
    if ((!$logged_in) && (isset ($HTTP_POST_VARS['user']))) {
       $user=userlogin ($HTTP_POST_VARS['user'], $HTTP_POST_VARS['pass'], $HTTP_POST_VARS['automatic']);
       if (0 != strcmp ($user['email'], "anonymous")) {
          $logged_in=1;
          $email=$user['email'];
+         $username=$user['username'];
       }
    }
 //lets see if our user is logged in
@@ -60,7 +64,7 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $HTTP_GET_VARS, $MAIN;
       submissionform_redo ();
    } else { //if they are logged in we will process the request.
       $req_date=time();
-      $sql="INSERT INTO ".$list_prefix."praise_list (request, praise, postdate, left_by) VALUES ('".$HTTP_GET_VARS['request']."', '".$HTTP_POST_VARS['praise']."', '".$req_date."',  '".addslashes($email)."');";
+      $sql="INSERT INTO ".$list_prefix."praise_list (request, praise, postdate, left_by, username) VALUES ('".$HTTP_GET_VARS['request']."', '".$HTTP_POST_VARS['praise']."', '".$req_date."',  '".addslashes($email)."', '".$username."');";
       $result=mysql_query($sql);
       if ($result)
          $CONTENT="Your praise been processed.<BR>\r\n";

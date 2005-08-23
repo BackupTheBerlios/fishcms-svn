@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 15, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 19, 2005
+//* Last edit:	August 22, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -94,7 +94,8 @@ global $list_prefix;
          $result=mysql_query($sql);
          fixorder ($order+1);
       }
-   }
+   } else
+      fixorder ($order+1);
 }
 //***function content ()******************************************************
 function content () {

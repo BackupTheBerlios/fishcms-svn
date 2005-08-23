@@ -2,9 +2,9 @@
 //****************************************************************************
 //* File:	admin/blocks.php
 //* Author:	G.A. Heath
-//* Date: 	August 21, 2005.
+//* Date: 	August 20, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 21, 2005
+//* Last edit:	August 22, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -15,12 +15,14 @@ include "../common.inc.php";
 //***function fixorder ($order, $blockset)************************************
 function fixorder ($order, $blockset) {
 global $list_prefix;
+//lets see if there are any entries for this order number
    $sql="SELECT * FROM `".$list_prefix ."blocks` WHERE (`blockset` = '".$blockset."' AND `order` = '".$order."');";
    $result=mysql_query($sql);
    if ($result)
       $rows = mysql_num_rows($result);
    else
       $rows=0;
+//if there are not lets see if there are any above it.
    if ($rows == 0) {
       $sql="SELECT * FROM `".$list_prefix ."blocks` WHERE (`blockset` = '".$blockset."' AND `order` > '".$order."') ORDER BY `order`;";
       $result=mysql_query($sql);
@@ -28,13 +30,15 @@ global $list_prefix;
          $rows = mysql_num_rows($result);
       else
          $rows=0;
+//if there entries above us lets set the first one to this order and then recurse with order+1;
       if ($rows != 0) {
          $row = mysql_fetch_array($result);
          $sql="UPDATE `".$list_prefix ."blocks` SET `order` = '".$order."' WHERE `id` = '".$row['id']."';";
          $result=mysql_query($sql);
-         fixorder ($order+1, $cat);
+         fixorder ($order+1, $blockset);
       }
-   }
+   } else //if there are is a match lets just recurse to the next order.
+      fixorder ($order+1, $blockset);
 }
 
 //***function loginbox ()*****************************************************
@@ -143,7 +147,7 @@ $BLOCKS=loadadmintmplate ("blocks");
             $order=$row['order'];
             $id=$row['id'];
          } else 
-               $order=1;  //we will default to order of 1.
+            $order=1;  //we will default to order of 1.
          //lets determine if there are any moves
          if (0 == strcmp ($HTTP_POST_VARS['position'], "up")) { //if it moves up
          //now we will find the new value for $order to move to
@@ -185,7 +189,7 @@ $BLOCKS=loadadmintmplate ("blocks");
             $sql="SELECT * FROM `".$list_prefix ."blocks` WHERE `blockset` = '".$blockset."' ORDER by `order` DESC;";
             $result=mysql_query($sql);
             if ($result)
-               $result=mysql_query($sql);
+               $rows=mysql_num_rows($result);
             else
                $rows=0;
             if (0 != $rows) {
@@ -213,7 +217,7 @@ $BLOCKS=loadadmintmplate ("blocks");
       $sql="SELECT * FROM `".$list_prefix ."blocks` WHERE `blockset` = '".$blockset."' ORDER by `order` DESC;";
       $result=mysql_query($sql);
       if ($result)
-         $result=mysql_query($sql);
+         $rows=mysql_num_rows($result);
       else
          $rows=0;
       if (0 != $rows) {

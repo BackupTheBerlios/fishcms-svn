@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 8, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	August 23, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -55,6 +55,8 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
       $WORK=insert_into_template ($PRAYERLIST, "{REQUESTFOR}", $row['request_for']);
       $WORK=insert_into_template ($WORK, "{REQUEST}", $row['request']);
       $WORK=insert_into_template ($WORK, "{REQUESTID}", $row['id']);
+      $WORK=insert_into_template ($WORK, "{DATE}", date ("m/d/Y", $row['postdate']));
+      $WORK=insert_into_template ($WORK, "{USERNAME}", $row['username']);
       $CONTENT=insert_into_template ($WORK, "{DELETE}", "<a href='prayerlist.php?delete=".$row['id']."'>Delete</a>");
    }
    if ($rows != 0) {

@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 19, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 19, 2005
+//* Last edit:	August 23, 2005
 //****************************************************************************
 $VERSION="0.1.1";
 
@@ -49,6 +49,19 @@ $error=0;
    $result=mysql_query($sql);
    if (!$result)
       $error=1;
+   $sql="ALTER TABLE `".$list_prefix."praise_list` ADD `username` VARCHAR( 56 ) NOT NULL AFTER `left_by` ;";
+   $result=mysql_query($sql);
+   if (!$result)
+      $error=1;
+   $sql="ALTER TABLE `".$list_prefix."prayer_list` ADD `username` VARCHAR( 56 ) NOT NULL AFTER `requested_by` ;";
+   $result=mysql_query($sql);
+   if (!$result)
+      $error=1;
+   $sql="CREATE TABLE `".$list_prefix."calendar` (`id` TINYINT NOT NULL AUTO_INCREMENT ,`weekly` TINYINT DEFAULT '7' NOT NULL ,`monthly` VARCHAR( 3 ) NOT NULL ,`yearly` VARCHAR( 5 ) NOT NULL ,`date` VARCHAR( 9 ) NOT NULL ,`time` VARCHAR( 5 ) NOT NULL ,`description` TEXT NOT NULL ,PRIMARY KEY ( `id` ));";
+   $result=mysql_query($sql);
+   if (!$result)
+      $error=1;
+   
 //lets die if there were errors
    if ($error) {
       die ("ERROR: Unable to (completely?) upgrade database from 0.1.0");

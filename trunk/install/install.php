@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 14, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 19, 2005
+//* Last edit:	August 23, 2005
 //****************************************************************************
 $VERSION="0.1.1";
 //===Functions================================================================
@@ -97,14 +97,15 @@ function emaildevs ($email) {
 
 //===Main code================================================================
 $list_prefix = $HTTP_POST_VARS['list_prefix'];
-$make_tables_sql['praise_list']="CREATE TABLE `".$list_prefix."praise_list` ( `id` int(11) NOT NULL auto_increment, `request` int(11) NOT NULL default '0', `praise` text NOT NULL, `postdate` int(11) NOT NULL default '0', `left_by` varchar(255) NOT NULL default '', PRIMARY KEY  (`id`));";
-$make_tables_sql['prayer_list']="CREATE TABLE `".$list_prefix."prayer_list` ( `id` int(11) NOT NULL auto_increment, `request_for` varchar(80) NOT NULL default '', `request` text NOT NULL, `postdate` int(11) NOT NULL default '0', `expiredate` int(11) NOT NULL default '0', `requested_by` varchar(255) NOT NULL default '', `expired` tinyint(4) NOT NULL default '0', PRIMARY KEY  (`id`));";
+$make_tables_sql['praise_list']="CREATE TABLE `".$list_prefix."praise_list` ( `id` int(11) NOT NULL auto_increment, `request` int(11) NOT NULL default '0', `praise` text NOT NULL, `postdate` int(11) NOT NULL default '0', `left_by` varchar(255) NOT NULL default '', `username` VARCHAR( 56 ) NOT NULL default '', PRIMARY KEY  (`id`));";
+$make_tables_sql['prayer_list']="CREATE TABLE `".$list_prefix."prayer_list` ( `id` int(11) NOT NULL auto_increment, `request_for` varchar(80) NOT NULL default '', `request` text NOT NULL, `postdate` int(11) NOT NULL default '0', `expiredate` int(11) NOT NULL default '0', `requested_by` varchar(255) NOT NULL default '', `username` VARCHAR( 56 ) NOT NULL default '',`expired` tinyint(4) NOT NULL default '0', PRIMARY KEY  (`id`));";
 $make_tables_sql['links']="CREATE TABLE `".$list_prefix."links` ( `id` TINYINT NOT NULL AUTO_INCREMENT , `category` TINYINT DEFAULT '0' NOT NULL , `title` VARCHAR( 56 ) NOT NULL , `url` VARCHAR( 255 ) NOT NULL , `order` TINYINT DEFAULT '0' NOT NULL, PRIMARY KEY ( `id` ));";
 $make_tables_sql['config']="CREATE TABLE `".$list_prefix."config` ( `key` varchar(25) NOT NULL default '', `value` varchar(255) NOT NULL default '', `order` tinyint NOT NULL default 0);";
 $make_tables_sql['articles']="CREATE TABLE `".$list_prefix."articles` (`id` tinyint(4) NOT NULL auto_increment, `article_title` varchar(128) NOT NULL default '', `teaser` text NOT NULL, `article` text NOT NULL, `posted_by` tinyint(4) NOT NULL default '0', `byline` varchar(255) NOT NULL default '', `date` int(11) NOT NULL default '0', `category` tinyint(4) NOT NULL default '0', PRIMARY KEY (`id`));";
 $make_tables_sql['news']="CREATE TABLE `".$list_prefix."news` ( `id` tinyint(4) NOT NULL auto_increment, `news_title` varchar(128) NOT NULL default '', `teaser` text NOT NULL, `news` text NOT NULL, `posted_by` tinyint(4) NOT NULL default '0', `byline` varchar(255) NOT NULL default '', `date` int(11) NOT NULL default '0', `category` tinyint(4) NOT NULL default '0', PRIMARY KEY (`id`));";
 $make_tables_sql['category']="CREATE TABLE `".$list_prefix."category` ( `id` TINYINT NOT NULL AUTO_INCREMENT, `name` VARCHAR(128) NOT NULL, `order` TINYINT DEFAULT '0' NOT NULL, PRIMARY KEY (`id`));";
 $make_tables_sql['blocks']="CREATE TABLE `".$list_prefix."blocks` (`id` TINYINT NOT NULL AUTO_INCREMENT , `name` VARCHAR( 64 ) NOT NULL , `blockset` TINYINT DEFAULT '0' NOT NULL , `order` TINYINT NOT NULL , PRIMARY KEY (`id`));";
+$make_tables_sql['calendar']="CREATE TABLE `".$list_prefix."calendar` (`id` TINYINT NOT NULL AUTO_INCREMENT ,`weekly` TINYINT DEFAULT '7' NOT NULL ,`monthly` VARCHAR( 3 ) NOT NULL ,`yearly` VARCHAR( 5 ) NOT NULL ,`date` VARCHAR( 9 ) NOT NULL ,`time` VARCHAR( 5 ) NOT NULL ,`description` TEXT NOT NULL ,PRIMARY KEY ( `id` ));";
 
 $preset_values_sql['config1']="INSERT INTO ".$list_prefix."config VALUES ('template', 'default', '');";
 $preset_values_sql['config2']="INSERT INTO ".$list_prefix."config VALUES ('index', 'modules', '');";

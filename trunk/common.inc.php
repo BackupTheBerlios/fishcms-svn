@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 7, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 19, 2005
+//* Last edit:	August 22, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -73,7 +73,7 @@ global $list_prefix;
 $LINKS=loadtmplate ("links");
 //lets get started
 //lets ask the db for all the links.
-   $sql="SELECT * FROM ".$list_prefix."links WHERE `category` = '0';";
+   $sql="SELECT * FROM ".$list_prefix."links WHERE `category` = '0' ORDER BY `order`;";
    $result=mysql_query($sql);
 //lets initialize our variables we will need to process the db results.
    $rows = mysql_num_rows($result);
@@ -140,9 +140,9 @@ $BLOCK_TEMPLATE=loadtmplate ("block");
       $rows = mysql_num_rows($result);
    else
       $rows=0;
-   $i=0;
+   $blocks=0;
    $CONTENT="";
-   while ($i < $rows) {
+   while ($blocks < $rows) {
       $row=mysql_fetch_array($result);
       if ($row['name'] == "test"){ 
          $WORK=insert_into_template ($BLOCK_TEMPLATE, "{BLOCK_TITLE}", "TEST BLOCK");
@@ -153,7 +153,7 @@ $BLOCK_TEMPLATE=loadtmplate ("block");
          $WORK=insert_into_template ($WORK, "{BLOCK_CONTENT}", $BLOCK['content']);
       }
       $CONTENT.=$WORK;
-      $i++;
+      $blocks++;
    }
    return $CONTENT;
 }

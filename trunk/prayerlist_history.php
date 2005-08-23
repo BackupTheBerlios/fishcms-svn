@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 9, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	August 23, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -54,6 +54,8 @@ $CONTENT="";
          //lets insert the prayerrequest into our working copy of this template.
          $WORK=insert_into_template ($PRAYERLIST, "{REQUESTFOR}", striphtml ($row['request_for']));
          $WORK=insert_into_template ($WORK, "{REQUEST}", striphtml ($row['request']));
+         $WORK=insert_into_template ($WORK, "{DATE}", date ("m/d/Y", $row['postdate']));
+         $WORK=insert_into_template ($WORK, "{USERNAME}", $row['username']);
          if ($user['admin'] == 1)
             $WORK=insert_into_template ($WORK, "{DELETE}", "<a href='prayerlist.php?delete=".$row['id']."'>Delete</a>");
          $i++;
@@ -87,7 +89,7 @@ $CONTENT="";
          $CONTENT.="<div align=\"right\"><a href='prayerlist.php?onepage=1'>Show all requests on one page.</a></div><br />\r\n";
       }
    } else {
-      $CONTENT.="There are no active prayer requests at this time.<BR>\r\n";
+      $CONTENT.="There are no history prayer requests at this time.<BR>\r\n";
    }
    //now lets output our prayer requests.
    $WORK=insert_into_template ($MAIN, "{CONTENT}", $CONTENT);

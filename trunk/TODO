@@ -11,7 +11,7 @@
 
 *******before 0.2.0 release do************************************************
 *add support for blocks
-calendar block
+calendar block (need to add day.php page script)
 *add verse of the day block
 parse all input to prevent buffer overflows.
 
@@ -23,10 +23,14 @@ include new theme(s)
 
 *******before 0.4.0 release do************************************************
 add installer tool (install upgrades, blocks, themes, modules, ect.)
-add rss and/or atom feeds for the prayerlist and index.page.
+add rss feed for the prayerlist and index.page.
 
 ******************************************************************************
 
+*******before 0.5.0 release do************************************************
+Rework admin Control panel, clean up the appearence, make it easier to use.
+
+******************************************************************************
 Work in progress.
 
 [admin panel]

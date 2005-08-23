@@ -15,3 +15,9 @@ August 17, 2005:  Added category support to all news and article pages and templ
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 August 17, 2005:  RELEASED FishCMS Version 0.1.0 (minnow)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+August 21, 2005:  Completed large segment of code relating to content blocks. 
+August 22, 2005:  Calendar and month.php 90% complete.  need to create db table, add db support, create admin CP page, and day.php
+August 23, 2005:  Calendar and month now access the db to check for events on that day, they are complete.  need to add event/calendar page to control panel.  write day.php
+		  Quite a few bug fixes in admin panel to fixorder (...) among other things.
+		  Fixed news and articles to be ordered by date (newest at top).
+		  Added user name and date to prayerlist and praise pages, anonymous still supported.

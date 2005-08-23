@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 17, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 19, 2005
+//* Last edit:	August 22, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -88,7 +88,8 @@ global $list_prefix;
          $sql="UPDATE `".$list_prefix ."links` SET `order` = '".$order."' WHERE `id` = '".$row['id']."';";
          $result=mysql_query($sql);
          fixorder ($order+1, $cat);
-      }
+      } else
+         fixorder ($order+1, $cat);
    }
 }
 //***function catorder ()**************************************************
