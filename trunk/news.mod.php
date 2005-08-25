@@ -17,7 +17,7 @@ global $list_prefix;
 $NEWS=loadtmplate ("news.mod");
 $CONTENT="";
  //lets calculate our query
-   $sql="SELECT * FROM ".$list_prefix. "news LIMIT 0 , ".$perpage." ORDER BY `date` DESC;";
+   $sql="SELECT * FROM ".$list_prefix. "news ORDER BY `date` DESC LIMIT 0 , ".$perpage.";";
 //now lets show the prayerlist entries.
    $result=mysql_query($sql);
 @   $rows = mysql_num_rows($result);

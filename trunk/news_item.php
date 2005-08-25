@@ -43,7 +43,7 @@ global $list_prefix, $NEWS, $MAIN;
    }
 }
 //===Main code================================================================
-   if (isset($HTTP_GET_VARS['news']))
+   if ((isset($HTTP_GET_VARS['news'])) && (is_numeric ($HTTP_GET_VARS['news'])))
       shownews ($HTTP_GET_VARS['news']);
    else {
       $CONTENT="ERROR: An invalid news item was requested.";

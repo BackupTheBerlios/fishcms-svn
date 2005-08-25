@@ -20,7 +20,7 @@ function submissionform () {
 global $logged_in, $user, $HTTP_POST_VARS, $HTTP_GET_VARS, $MAIN, $LINKS, $LEAVEPRAISE;
    $WORK=loggedin ();
    //lets draw the request form.
-   $WORK=insert_into_template ($LEAVEPRAISE, "{LOGGEDIN}", $CONTENT);
+   $WORK=insert_into_template ($LEAVEPRAISE, "{LOGGEDIN}", $WORK);
    $WORK=insert_into_template ($WORK, "{REQUESTID}", $HTTP_GET_VARS['request']);
    $WORK=insert_into_template ($MAIN, "{CONTENT}", $WORK);
    $WORK=filltemplate ($WORK, "Leave Praise");
@@ -28,10 +28,10 @@ global $logged_in, $user, $HTTP_POST_VARS, $HTTP_GET_VARS, $MAIN, $LINKS, $LEAVE
 }
 //***function submissionform_redo ()******************************************
 function submissionform_redo () {
-global $logged_in, $user, $HTTP_POST_VARS, $HTTP_GET_VARS, $MAIN;
+global $logged_in, $user, $HTTP_POST_VARS, $HTTP_GET_VARS, $MAIN, $LEAVEPRAISE;
    $WORK=loggedin ();
    //lets redraw the request form.
-   $WORK=insert_into_template ($LEAVEPRAISE, "{LOGGEDIN}", $CONTENT);
+   $WORK=insert_into_template ($LEAVEPRAISE, "{LOGGEDIN}", $WORK);
    $WORK=insert_into_template ($WORK, "{REQUESTID}", $HTTP_GET_VARS['request']);
    $WORK=insert_into_template ($WORK, "{PREFILL}", $HTTP_POST_VARS['praise']);
    $WORK=insert_into_template ($MAIN, "{CONTENT}", $WORK);
@@ -64,6 +64,8 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $HTTP_GET_VARS, $MAIN;
       submissionform_redo ();
    } else { //if they are logged in we will process the request.
       $req_date=time();
+      if (!is_numeric ($HTTP_GET_VARS['request']))
+         die ("HACKING ATTEMPT");
       $sql="INSERT INTO ".$list_prefix."praise_list (request, praise, postdate, left_by, username) VALUES ('".$HTTP_GET_VARS['request']."', '".$HTTP_POST_VARS['praise']."', '".$req_date."',  '".addslashes($email)."', '".$username."');";
       $result=mysql_query($sql);
       if ($result)

@@ -16,11 +16,11 @@ include "calendar.inc.php";
 $month = date ("m");
 $year = date ("Y");
 //if we are overriding the current date lets set $day, $month, and $year here.
-if (isset ($HTTP_GET_VARS['month']))
+if ((isset ($HTTP_GET_VARS['month'])) && (is_numeric ($HTTP_GET_VARS['month'])))
    $month=$HTTP_GET_VARS['month'];
 else
    $month = date ("m");
-if (isset ($HTTP_GET_VARS['year']))
+if ((isset ($HTTP_GET_VARS['year'])) && ($HTTP_GET_VARS['year']))
    $year=$HTTP_GET_VARS['year'];
 else
    $year = date ("Y");

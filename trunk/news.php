@@ -21,7 +21,7 @@ $NAVLINKS=GETNAVLINKS ();
 function shownews ($category) {
 global $HTTP_GET_VARS, $NEWS, $list_prefix, $MAIN;
 $CONTENT="";
-   if (isset ($HTTP_GET_VARS['perpage']))
+   if ((isset ($HTTP_GET_VARS['perpage'])) && (is_numeric ($HTTP_GET_VARS['perpage'])))
       $perpage=$HTTP_GET_VARS['perpage'];
    else
       $perpage=3;
@@ -31,7 +31,7 @@ $CONTENT="";
    else
       $onepage=0;
 //lets see what page we are on
-   if (!isset ($HTTP_GET_VARS['page']))
+   if ((!isset ($HTTP_GET_VARS['page'])) || (!is_numeric($HTTP_GET_VARS['page'])))
       $page=1;
    else
       $page=$HTTP_GET_VARS['page'];
@@ -108,7 +108,7 @@ $user = getuserinfo ();
       $logged_in = 1;
    //start main code here.
    //lets handle the user interaction here.
-   if (isset($HTTP_GET_VARS['category']))
+   if ((isset($HTTP_GET_VARS['category'])) && (is_numeric ($HTTP_GET_VARS['category'])))
       $category=$HTTP_GET_VARS['category'];
    else
       $category=0;

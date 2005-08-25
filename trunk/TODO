@@ -11,9 +11,9 @@
 
 *******before 0.2.0 release do************************************************
 *add support for blocks
-calendar block (need to add day.php page script)
+*calendar block (need to add day.php page script)
 *add verse of the day block
-parse all input to prevent buffer overflows.
+*basic security inspection
 
 *******before 0.3.0 release do************************************************
 add native user/admin database table (keep phpbb intergration).

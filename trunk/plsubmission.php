@@ -46,8 +46,11 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $MAIN;
    if (isset ($HTTP_POST_VARS['anonymous'])) {
       $logged_in=1;
       $email='anonymous';
-   } else
+      $username='anonymous';
+   } else {
       $email=$user['email'];
+      $username=$user['username'];
+   }
 //lets accept request from users who are not cookied but are logging in.
    if ((!$logged_in) && (isset ($HTTP_POST_VARS['user']))) {
       $user=userlogin ($HTTP_POST_VARS['user'], $HTTP_POST_VARS['pass'], $HTTP_POST_VARS['automatic']);
@@ -78,7 +81,7 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $MAIN;
                $expire=$req_date+(60 * 60 *24 * 365.25);
             break; 
       }
-      $sql="INSERT INTO ".$list_prefix."prayer_list (request_for, request, postdate, expiredate, requested_by) VALUES ('".$HTTP_POST_VARS['request_for']."', '".$HTTP_POST_VARS['request']."', '".$req_date."', '".$expire."', '".addslashes($email)."');";
+      $sql="INSERT INTO ".$list_prefix."prayer_list (request_for, request, postdate, expiredate, requested_by, username) VALUES ('".$HTTP_POST_VARS['request_for']."', '".$HTTP_POST_VARS['request']."', '".$req_date."', '".$expire."', '".addslashes($email)."', '".addslashes($username)."');";
       $result=mysql_query($sql);
       if ($result)
          $WORK="Your prayer request has been processed.<BR>\r\n";

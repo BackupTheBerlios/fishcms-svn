@@ -220,7 +220,7 @@ $cookiename="phpbbauth_admincookie";
 //***function loggedin ()*****************************************************
 function loggedin () { //this function allows the login to be part of another form.
 //eventually we want to phase this one out except when the prayerlist is in standalone mode.
-global $user;
+global $user, $HTTP_POST_VARS;
 //lets make sure that if our user is logged in or logging in that we know it.
    if (!isset ($user))
       $user=getuserinfo ();
@@ -240,7 +240,7 @@ global $user;
 
 //***function login ()*****************************************************
 function login () { //this function draws a complete login form
-global $user;
+global $user, $HTTP_POST_VARS;
 //lets make sure that if our user is logged in or logging in that we know it.
    if (!isset ($user))
       $user=getuserinfo ();

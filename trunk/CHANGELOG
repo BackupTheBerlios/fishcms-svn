@@ -21,3 +21,8 @@ August 23, 2005:  Calendar and month now access the db to check for events on th
 		  Quite a few bug fixes in admin panel to fixorder (...) among other things.
 		  Fixed news and articles to be ordered by date (newest at top).
 		  Added user name and date to prayerlist and praise pages, anonymous still supported.
+August 24, 2005:  Finished Coding admin panel page for the calendar.
+		  Completed basic bug hunt and hunt for clear security holes.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+August 25, 2005:  RELEASED FishCMS Version 0.2.0 (guppy)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

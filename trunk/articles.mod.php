@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 17, 2005
+//* Last edit:	August 22, 2005
 //****************************************************************************
 
 //===Functions================================================================
@@ -14,10 +14,13 @@ global $list_prefix;
 $ARTICLES=loadtmplate ("articles.mod");
 $CONTENT="";
  //lets calculate our query
-   $sql="SELECT * FROM ".$list_prefix. "articles LIMIT 0 , ".$perpage.";";
+   $sql="SELECT * FROM `".$list_prefix. "articles` ORDER BY `date` DESC LIMIT 0 , ".$perpage.";";
 //now lets show the prayerlist entries.
    $result=mysql_query($sql);
-@   $rows = mysql_num_rows($result);
+   if ($result)
+      $rows = mysql_num_rows($result);
+   else
+      $rows = 0;
    if ($rows != 0) {
       $j=0;
       while ($j < $rows) {

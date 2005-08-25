@@ -21,7 +21,7 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINKS, $PRAYERLIST;
 //lets set our content to be blank.
 $CONTENT="";
 //lets see if the user has specified how many requests per page.
-   if (isset ($HTTP_GET_VARS['perpage']))
+   if ((isset ($HTTP_GET_VARS['perpage'])) && (is_numeric ($HTTP_GET_VARS['perpage'])))
       $perpage=$HTTP_GET_VARS['perpage'];
    else
       $perpage=3;
@@ -31,7 +31,7 @@ $CONTENT="";
    else
       $onepage=0;
 //lets see what page we are on
-   if (!isset ($HTTP_GET_VARS['page']))
+   if ((!isset ($HTTP_GET_VARS['page'])) && (is_numeric ($HTTP_GET_VARS['page'])))
       $page=1;
    else
       $page=$HTTP_GET_VARS['page'];
@@ -121,7 +121,7 @@ $user = getuserinfo ();
       $logged_in = 1;
    //start main code here.
    //lets handle the user interaction here.
-   if ($HTTP_GET_VARS['delete'])
+   if (($HTTP_GET_VARS['delete']) && (is_numeric ($HTTP_GET_VARS['delete'])))
       if ($user['admin'] == 1)
          delete_request ($HTTP_GET_VARS['delete']);
       else {

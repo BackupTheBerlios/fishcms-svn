@@ -19,7 +19,7 @@ $APP="prayerlist";
 function showlist () {
 global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
 //lets see if the user has specified how many requests per page.
-   if (isset ($HTTP_GET_VARS['perpage']))
+   if ((isset ($HTTP_GET_VARS['perpage'])) && (is_numeric ($HTTP_GET_VARS['perpage'])))
       $perpage=$HTTP_GET_VARS['perpage'];
    else
       $perpage=10;
@@ -29,7 +29,7 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
    else
       $onepage=0;
 //lets see what page we are on
-   if (!isset ($HTTP_GET_VARS['page']))
+   if ((!isset ($HTTP_GET_VARS['page'])) || ($HTTP_GET_VARS['page']))
       $page=1;
    else
       $page=$HTTP_GET_VARS['page'];
@@ -66,6 +66,8 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
          $WORK=insert_into_template ($PRAISE, "{PRAISE}", $row['praise']); 
          if ($user['admin'] == 1)
             $WORK=insert_into_template ($WORK, "{DELETE}", "<a href='praise.php?delete=".$row['id']."'>Delete</a>");
+            $WORK=insert_into_template ($WORK, "{DATE}", date ("m/d/Y", $row['postdate']));
+            $WORK=insert_into_template ($WORK, "{USERNAME}", $row['username']);
          $i++;
          $CONTENT.=$WORK;
       }
@@ -131,7 +133,7 @@ $user = getuserinfo ();
    //start main code here.
    //lets handle the user interaction here.
    
-   if ($HTTP_GET_VARS['delete'])
+   if (($HTTP_GET_VARS['delete']) && (is_numeric ($HTTP_GET_VARS['delete'])))
       if ($user['admin'] == 1)
          delete_praise ($HTTP_GET_VARS['delete']);
       else {
@@ -142,7 +144,7 @@ $user = getuserinfo ();
          printf ("%s", striptemplate ($WORK));
       }
    else
-      if ($HTTP_GET_VARS['request'])
+      if (($HTTP_GET_VARS['request']) && (is_numeric ($HTTP_GET_VARS['request'])))
          showlist ();
       else {
          $CONTENT="This page can only show praise associated with a prayer request.<br />\r\n";

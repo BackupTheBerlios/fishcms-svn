@@ -18,7 +18,7 @@ $DAY=loadtmplate("day");
 $EVENTS=loadtmplate("events");
 
 //now lets get to work.
-   if ((isset ($HTTP_GET_VARS['month'])) && (isset ($HTTP_GET_VARS['day'])) && (isset ($HTTP_GET_VARS['year']))) {
+   if ((isset ($HTTP_GET_VARS['month'])) && (isset ($HTTP_GET_VARS['day'])) && (isset ($HTTP_GET_VARS['year'])) && (is_numeric ($HTTP_GET_VARS['month'])) && (is_numeric ($HTTP_GET_VARS['day'])) && (is_numeric ($HTTP_GET_VARS['year']))) {
    //lets initialize our variables
       $CONTENT="";
       $day=$HTTP_GET_VARS['day'];

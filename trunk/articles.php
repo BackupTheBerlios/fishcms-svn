@@ -20,7 +20,7 @@ $ARTICLES=loadtmplate ("articles");
 function showarticles ($category) {
 global $HTTP_GET_VARS, $ARTICLES, $list_prefix, $MAIN;
 $CONTENT="";
-   if (isset ($HTTP_GET_VARS['perpage']))
+   if ((isset ($HTTP_GET_VARS['perpage'])) && (is_numeric ($HTTP_GET_VARS['perpage'])))
       $perpage=$HTTP_GET_VARS['perpage'];
    else
       $perpage=3;
@@ -30,14 +30,14 @@ $CONTENT="";
    else
       $onepage=0;
 //lets see what page we are on
-   if (!isset ($HTTP_GET_VARS['page']))
+   if ((!isset ($HTTP_GET_VARS['page'])) || (!is_numeric ($HTTP_GET_VARS['page'])))
       $page=1;
    else
       $page=$HTTP_GET_VARS['page'];
 //lets calculate our start position for our query if needed.
    $start=($page-1)*$perpage;
  //lets calculate our query
-   $sql="SELECT * FROM ".$list_prefix."articles";
+   $sql="SELECT * FROM `".$list_prefix."articles`";
    if ($category != 0)
       $sql.=" WHERE category = '". $category."'";
    if ($onepage == 0)
@@ -107,7 +107,7 @@ $user = getuserinfo ();
       $logged_in = 1;
    //start main code here.
    //lets handle the user interaction here.
-   if (isset($HTTP_GET_VARS['category']))
+   if ((isset($HTTP_GET_VARS['category'])) && (is_numeric ($HTTP_GET_VARS['category'])))
       $category=$HTTP_GET_VARS['category'];
    else
       $category=0;

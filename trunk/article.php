@@ -42,7 +42,7 @@ global $list_prefix, $ARTICLE, $MAIN;
    }
 }
 //===Main code================================================================
-   if (isset($HTTP_GET_VARS['article']))
+   if ((isset($HTTP_GET_VARS['article'])) && (is_numeric ($HTTP_GET_VARS['article'])))
       showarticle ($HTTP_GET_VARS['article']);
    else {
       $CONTENT="ERROR: An invalid article was requested.";
