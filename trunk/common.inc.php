@@ -148,9 +148,11 @@ $BLOCK_TEMPLATE=loadtmplate ("block");
          $WORK=insert_into_template ($BLOCK_TEMPLATE, "{BLOCK_TITLE}", "TEST BLOCK");
          $WORK=insert_into_template ($WORK, "{BLOCK_CONTENT}", "this is a test block");
       } else {
-         include "blocks/".$row['name'].".php";
-         $WORK=insert_into_template ($BLOCK_TEMPLATE, "{BLOCK_TITLE}", $BLOCK['title']);
-         $WORK=insert_into_template ($WORK, "{BLOCK_CONTENT}", $BLOCK['content']);
+         if (file_exists("./blocks/".$row['name'].".php")) {
+            include "blocks/".$row['name'].".php";
+            $WORK=insert_into_template ($BLOCK_TEMPLATE, "{BLOCK_TITLE}", $BLOCK['title']);
+            $WORK=insert_into_template ($WORK, "{BLOCK_CONTENT}", $BLOCK['content']);
+         }
       }
       $CONTENT.=$WORK;
       $blocks++;
