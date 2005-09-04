@@ -26,3 +26,13 @@ August 24, 2005:  Finished Coding admin panel page for the calendar.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 August 25, 2005:  RELEASED FishCMS Version 0.2.0 (guppy)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+September 3, 2005:  Took a week off from coding to clear my head.  came back
+		    to bug fixes.
+September 3, 2005:  Fixed install/install.php
+September 3, 2005:  Fixed an annoying bug in admin/news.php
+September 3, 2005:  Fixed an annoying bug in admin/articles.php
+September 3, 2005:  Changed install/upgrade.php to update db to version
+		    0.2.1 no DB changes to be done at this time.
+September 4, 2005:  Fixed bug in admin/links.php that would segfault apache.
+September 4, 2005:  began to move common code in admin section into
+		    the include file admin/common.inc.php

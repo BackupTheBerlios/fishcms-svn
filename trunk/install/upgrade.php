@@ -4,9 +4,9 @@
 //* Author:	G.A. Heath
 //* Date: 	August 19, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 23, 2005
+//* Last edit:	September 4, 2005
 //****************************************************************************
-$VERSION="0.2.0";
+$VERSION="0.2.1";
 
 //===Includes=================================================================
 include_once "../fishcms-config.php";
@@ -68,10 +68,20 @@ $error=0;
    }
 }
 
+//***function upgrade_from020 ()**********************************************
+function upgrade_from020 () {
+   //there is nothing to really do here as there are no db changes just code.
+}
+
 //===Main code================================================================
 //lets do the upgrades
-   if (0 == strcmp ($OLD_VERSION, "0.1.0")) //if we are dealing with the first version
+   if (0 == strcmp ($OLD_VERSION, "0.1.0")) { //if we are dealing with the first version
       upgrade_from010 ();
+      upgrade_from020 ();
+   }
+   if (0 == strcmp ($OLD_VERSION, "0.2.0")) { //we will upgrade from this buggy release also.
+      upgrade_from020 ();
+   }
 //lets update the version in the DB to the current version number
    $sql="UPDATE `".$list_prefix ."config` SET `value` = '".$VERSION."' WHERE `key` = 'version';";
    $result=mysql_query($sql);

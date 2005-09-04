@@ -4,12 +4,12 @@
 //* Author:	G.A. Heath
 //* Date: 	August 20, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 22, 2005
+//* Last edit:  September 4, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
 include "../common.inc.php";
-
+include "common.inc.php";
 //===Functions================================================================
 
 //***function fixorder ($order, $blockset)************************************
@@ -39,15 +39,6 @@ global $list_prefix;
       }
    } else //if there are is a match lets just recurse to the next order.
       fixorder ($order+1, $blockset);
-}
-
-//***function loginbox ()*****************************************************
-function loginbox () {
-   printf ("<form method='post' action='index.php?login=1'>\r\n");
-   printf ("Username: <input type='text' name='adminuser' size='20'><BR>");
-   printf ("Password: <input type='password' name='adminpass' size='20'><BR>");
-   printf ("<input type='submit' value='Login'><BR>");
-   printf ("</form>\r\n");
 }
 
 //***function list_inactive_blocks ()*****************************************

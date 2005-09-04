@@ -4,22 +4,12 @@
 //* Author:	G.A. Heath
 //* Date: 	August 17, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 19, 2005
+//* Last edit:  September 4, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
 include "../common.inc.php";
-
-//===Functions================================================================
-
-//***function loginbox ()*****************************************************
-function loginbox () {
-   printf ("<form method='post' action='index.php?login=1'>\r\n");
-   printf ("Username: <input type='text' name='adminuser' size='20'><BR>");
-   printf ("Password: <input type='password' name='adminpass' size='20'><BR>");
-   printf ("<input type='submit' value='Login'><BR>");
-   printf ("</form>\r\n");
-}
+include "common.inc.php";
 //***function newslist ()**************************************************
 function newslist () {
 global $list_prefix;
@@ -88,8 +78,8 @@ $NEWS=loadadmintmplate("news");
          $WORK=insert_into_template ($WORK, "{NEWSID}", $row['id']);
          $WORK=insert_into_template ($WORK, "{CATLIST}", catlist ($row['category']));
          $WORK=insert_into_template ($WORK, "{NEWSTITLE}", $row['news_title']);
-         $WORK=insert_into_template ($WORK, "{TEASER}", $row['teaser']);
-         $WORK=insert_into_template ($WORK, "{NEWS}", $row['news']);
+         $WORK=insert_into_template ($WORK, "{TEASER}", stripslashes ($row['teaser']));
+         $WORK=insert_into_template ($WORK, "{NEWS}", stripslashes ($row['news']));
          $WORK=insert_into_template ($WORK, "{BYLINE}", $row['byline']);
       }
    } else { //if we are not editing an news lets prepare the form for a new news.

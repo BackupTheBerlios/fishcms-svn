@@ -1,20 +1,19 @@
 <?
 //****************************************************************************
-//* File:	install.php
+//* File:	install.php[B
 //* Author:	G.A. Heath
 //* Date: 	July 14, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 23, 2005
+//* Last edit:	September 4, 2005
 //****************************************************************************
-$VERSION="0.2.0";
+$VERSION="0.2.1";
 //===Functions================================================================
 //***function draw_install_form ()********************************************
 function draw_install_form () {
 global $_SERVER;
 $FORM['sitename']=$_SERVER['HTTP_HOST'];
 $FORM['sitedescription']="A FishCMS powered site.";
-$FORM['copyright']="FishCMS is licensed under the <a href='http://www.gnu.org'>GNU</a> <a href='http://www.gnu.org/licenses/gpl.html'>General Public License</a><BR>
-&copy; 2005 by G.A. Heath and Michael Rice.";
+$FORM['copyright']="FishCMS is licensed under the GNU <a href='http://www.gnu.org/licenses/gpl.html'>General Public License</a><BR>&copy; 2005 by G.A. Heath and Michael Rice.";
    printf ("<form method='post' action='install.php?submit=1'>\r\n");
    printf ("<CENTER><H2>Installation</H2></CENTER>\r\n");
    printf ("<h3>MySQL configuration:</h3>\r\n");
@@ -85,13 +84,12 @@ function joinlist ($email) {
    $xtra="From: ".$email."\r\nX-Mailer: FishCMS.\r\nReturn-Path: ".$email."\r\n";
    $message="";
    $result = @mail("fishlist-suscribe@fishcms.com", "Suscribe", $message, $xtra);
-
 }
 //***function joinlist ($email)***********************************************
 function emaildevs ($email) {
    $xtra="From: ".$email."\r\nX-Mailer: FishCMS.\r\nReturn-Path: ".$email."\r\n";
    $message="A new FishCMS site has been installed.\r\n";
-   $message.="The url is ".$_SERVER['HTTP_HOST'].str_replace ("install.php", "", $_SERVER['PHP_SELF']);
+   $message.="The url is ".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "", $_SERVER['PHP_SELF']);
    $result = @mail("fishdevs@fishcms.com", "A new FishCMS site!", $message, $xtra);
 }
 
@@ -112,18 +110,18 @@ $preset_values_sql['config2']="INSERT INTO ".$list_prefix."config VALUES ('index
 $preset_values_sql['config3']="INSERT INTO ".$list_prefix."config VALUES ('indexmodule', 'articles', '1');";
 $preset_values_sql['config4']="INSERT INTO ".$list_prefix."config VALUES ('indexmodule', 'news', '2');";
 $preset_values_sql['config5']="INSERT INTO ".$list_prefix."config VALUES ('indexmodule', 'prayerlist', '3');";
-$preset_values_sql['config6']="INSERT INTO ".$list_prefix."config VALUES ('url', '".$_SERVER['HTTP_HOST'].str_replace ("install.php", "", $_SERVER['PHP_SELF'])."', '');";
+$preset_values_sql['config6']="INSERT INTO ".$list_prefix."config VALUES ('url', '".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "", $_SERVER['PHP_SELF'])."', '');";
 $preset_values_sql['config7']="INSERT INTO ".$list_prefix."config VALUES ('version', '".$VERSION."', '');";
 $preset_values_sql['news']="INSERT INTO ".$list_prefix."news VALUES ('', 'Welcome to FishCMS', 'The developers would like to thank you for trying <a href=\'http://fishcms.com\'>FishCMS</a>.', 'FishCMS is being developed by the webmasters at <a href=\'http://believewith.us/\'>BelieveWith.US</a>.', '2', 'FishCMS developers', '".time ()."', '1');";
-$preset_values_sql['articles']="INSERT INTO ".$list_prefix."articles VALUES ('', 'A new FishCMS website', '".$_SERVER['HTTP_HOST'].str_replace ("/install.php", "", $_SERVER['PHP_SELF'])." has just installed <a href=\'http://fishcms.com\'>FishCMS</a>...', '<a href=\'http://fishcms.com\'>FishCMS</a> is being developed by the webmasters at <a href=\'http://believewith.us/\'>BelieveWith.US</a>. and is distributed under the GNU Public License (AKA GPL).', '2', 'FishCMS developers', '".time ()."', '1');";
-$preset_values_sql['links1']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Home', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install.php", "", $_SERVER['PHP_SELF'])."', '1');";
-$preset_values_sql['links2']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Prayer List', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install.php", "prayerlist.php", $_SERVER['PHP_SELF'])."', '2');";
-$preset_values_sql['links3']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'News', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install.php", "news.php", $_SERVER['PHP_SELF'])."', '3');";
-$preset_values_sql['links4']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Articles', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install.php", "articles.php", $_SERVER['PHP_SELF'])."', '4');";
-$preset_values_sql['links5']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Links', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install.php", "links.php", $_SERVER['PHP_SELF'])."', '5');";
+$preset_values_sql['articles']="INSERT INTO ".$list_prefix."articles VALUES ('', 'A new FishCMS website', '".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "", $_SERVER['PHP_SELF'])." has just installed <a href=\'http://fishcms.com\'>FishCMS</a>...', '<a href=\'http://fishcms.com\'>FishCMS</a> is being developed by the webmasters at <a href=\'http://believewith.us/\'>BelieveWith.US</a>. and is distributed under the GNU Public License (AKA GPL).', '2', 'FishCMS developers', '".time ()."', '1');";
+$preset_values_sql['links1']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Home', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "", $_SERVER['PHP_SELF'])."', '1');";
+$preset_values_sql['links2']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Prayer List', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "prayerlist.php", $_SERVER['PHP_SELF'])."', '2');";
+$preset_values_sql['links3']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'News', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "news.php", $_SERVER['PHP_SELF'])."', '3');";
+$preset_values_sql['links4']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Articles', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "articles.php", $_SERVER['PHP_SELF'])."', '4');";
+$preset_values_sql['links5']="INSERT INTO ".$list_prefix."links VALUES ('', '', 'Links', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "links.php", $_SERVER['PHP_SELF'])."', '5');";
 $preset_values_sql['category']="INSERT INTO ".$list_prefix."category VALUES ('', 'General', '1');";
 $preset_values_sql['blocks1']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'verse_of_the_day', '1', '1');";
-$preset_values_sql['blocks2']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'bible_gateway_search', '1', '2');";
+$preset_values_sql['blocks2']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'calendar', '1', '2');";
 
    //if we have our values lets test the db.
    if ((isset ($HTTP_POST_VARS['db_host'])) && (isset ($HTTP_POST_VARS['db_username'])) && (isset ($HTTP_POST_VARS['db_password'])) && (isset ($HTTP_POST_VARS['db_database'])) && (isset ($HTTP_POST_VARS['list_prefix']))) {
@@ -151,9 +149,10 @@ $preset_values_sql['blocks2']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'b
          $config_contents.="\$db_database='".$HTTP_POST_VARS['db_database']."';\r\n";
          $config_contents.="\$list_prefix='".$HTTP_POST_VARS['list_prefix']."';\r\n";
          $config_contents.="?>\r\n";
-         if ($file= @fopen($config_name, "w"))
+         if ($file= @fopen("../".$config_name, "w")) {
             fwrite ($file, $config_contents);
-         else {
+            fclose ($file);
+         } else {
             printf ("ERROR: Unable tp create file %s<BR>\r\n", $config_name);
             printf ("Please copy and paste the following text in your FishCMS directory as %s<BR>\r\n", $config_name);
             printf ("<pre>%s</pre>\r\n", htmlspecialchars ($config_contents));
@@ -227,6 +226,12 @@ $preset_values_sql['blocks2']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'b
             $result = @mysql_query($preset_values_sql['category']);
             if (!$result)
                $error=1;
+            $result = @mysql_query($preset_values_sql['blocks1']);
+            if (!$result)
+               $error=1;
+            $result = @mysql_query($preset_values_sql['blocks2']);
+            if (!$result)
+               $error=1;
             if ($error==1)
                printf ("ERROR: I was unable to insert all of the default values into the database.<BR>\r\n<BR>\r\n");
             //here we will insert user configured values into the tables.
@@ -242,10 +247,10 @@ $preset_values_sql['blocks2']="INSERT INTO ".$list_prefix."blocks VALUES ('', 'b
             $result = @mysql_query($sql);
             if (!$result)
                printf ("ERROR: I was unable to insert all of the user configured values<BR>\r\n");
-            $sql="INSERT INTO ".$list_prefix."config VALUES ('copyright', '".$HTTP_POST_VARS['copyright']."', '');";
+            $sql="INSERT INTO ".$list_prefix."config VALUES ('copyright', '".addslashes ($HTTP_POST_VARS['copyright'])."', '');";
             $result = @mysql_query($sql);
             if (!$result)
-               printf ("ERROR: I was unable to insert all of the user configured values<BR>\r\n");
+               printf ("ERROR 4: I was unable to insert all of the user configured values<BR>\r\n");
             //now we will send any email we need to send.
             if (isset ($HTTP_POST_VARS['join_list']))
                joinlist ($HTTP_POST_VARS['admin_email']);
