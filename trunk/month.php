@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 22, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 22, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 include "common.inc.php";
@@ -68,9 +68,9 @@ $LINK_DAY=loadtmplate ("callink_day");
       //if there is activity on this day we will make a link available
       $event=0;
       $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `weekly`='".dayofweek ($month, $iday, $year)."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows=mysql_num_rows($result);
+         $rows=db_num_rows($result);
       else
          $rows=0;
       if ($rows > 0)
@@ -84,25 +84,25 @@ $LINK_DAY=loadtmplate ("callink_day");
       else
          $M=$month;
       $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `monthly`='".$D."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows=mysql_num_rows($result);
+         $rows=db_num_rows($result);
       else
          $rows=0;
       if ($rows > 0)
          $event=1;
       $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `yearly`='".$M.$D."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows=mysql_num_rows($result);
+         $rows=db_num_rows($result);
       else
          $rows=0;
       if ($rows > 0)
          $event=1;
       $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `date`='".$year.$M.$D."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows=mysql_num_rows($result);
+         $rows=db_num_rows($result);
       else
          $rows=0;
       if ($rows > 0)

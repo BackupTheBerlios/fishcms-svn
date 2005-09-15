@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 17, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:  September 4, 2005
+//* Last edit:  September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -15,14 +15,14 @@ function newslist () {
 global $list_prefix;
    $NEWSLIST="<select name='news'>\r\n";
    $sql="SELECT * from `".$list_prefix."news` WHERE 1;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows=0;
    $i=0;
    while ($i < $rows) {
-      $row=mysql_fetch_array($result);
+      $row=db_fetch_array($result);
       $NEWSLIST.="<option value='".$row['id']."'>".$row['news_title']."</option>\r\n";
       $i++;
    }
@@ -37,14 +37,14 @@ function catlist ($cat) {
 global $list_prefix;
    $CATLIST="<select name='category'>\r\n";
    $sql="SELECT * from `".$list_prefix."category` WHERE 1;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows=0;
    $i=0;
    while ($i < $rows) {
-      $row=mysql_fetch_array($result);
+      $row=db_fetch_array($result);
       if ($cat == $row['id'])
          $CATLIST.="<option value='".$row['id']."' selected>".$row['name']."</option>\r\n";
       else
@@ -65,16 +65,16 @@ $NEWS=loadadmintmplate("news");
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "select")) { //if we are to edit an news
    //lets get the news from the db
       $sql="SELECT * FROM `".$list_prefix."news` WHERE `id` = '".$HTTP_POST_VARS['news']."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows = mysql_num_rows($result);
+         $rows = db_num_rows($result);
       else
          $rows=0;
       if ($rows == 0) { //lets make sure that the news exists
          $WORK=insert_into_template ($WORK, "{NEWCHECK}", "checked");
          $WORK=insert_into_template ($WORK, "{CATLIST}", catlist (0));
       } else { //if it does we will read it from the db and add it to our output.
-         $row=mysql_fetch_array($result);
+         $row=db_fetch_array($result);
          $WORK=insert_into_template ($WORK, "{NEWSID}", $row['id']);
          $WORK=insert_into_template ($WORK, "{CATLIST}", catlist ($row['category']));
          $WORK=insert_into_template ($WORK, "{NEWSTITLE}", $row['news_title']);
@@ -89,7 +89,7 @@ $NEWS=loadadmintmplate("news");
 //lets delete an news if its selected   
    if ((0 == strcmp ($HTTP_GET_VARS['mode'], "delete")) && (isset ($HTTP_POST_VARS['delete_yes']))) {
       $sql="DELETE FROM `".$list_prefix."news` WHERE `id` = '".$HTTP_POST_VARS['news']."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
    } elseif (0 == strcmp ($HTTP_GET_VARS['mode'], "delete"))
       $WORK="You must check the confirmation box to delete a news item.<br>\r\n".$WORK;
    
@@ -98,10 +98,10 @@ $NEWS=loadadmintmplate("news");
       $posted_by=$user['user_id'];
       if (isset ($HTTP_POST_VARS['newnews'])) { //its a new news being saved.
          $sql="INSERT INTO ".$list_prefix."news VALUES ('', '".addslashes ($HTTP_POST_VARS['newstitle'])."', '".addslashes ($HTTP_POST_VARS['teaser'])."', '".addslashes ($HTTP_POST_VARS['news'])."', '".$posted_by."', '".addslashes ($HTTP_POST_VARS['byline'])."', '".time ()."', '".$HTTP_POST_VARS['category']."');";
-         $result=mysql_query($sql);
+         $result=db_query($sql);
       } elseif (isset ($HTTP_POST_VARS['newsid'])) { //its an old news being saved
          $sql="UPDATE `".$list_prefix ."news` SET `news_title` = '".addslashes ($HTTP_POST_VARS['newstitle'])."', `teaser` = '".addslashes ($HTTP_POST_VARS['teaser'])."', `news` = '".addslashes ($HTTP_POST_VARS['news'])."', `byline` = '".addslashes ($HTTP_POST_VARS['byline'])."', `category` = '".$HTTP_POST_VARS['category']."' WHERE `id` = '".$HTTP_POST_VARS['newsid']."';";
-         $result=mysql_query($sql);
+         $result=db_query($sql);
       } else
          $WORK="You must check the new news box to save a new news<br>\r\n".$WORK;
    }

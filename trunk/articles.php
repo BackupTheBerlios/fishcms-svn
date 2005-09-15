@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 22, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -45,13 +45,13 @@ $CONTENT="";
   else
       $sql.=" ORDER BY `date` DESC;";
 //now lets show the prayerlist entries.
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ($rows != 0) {
       $i=0;
       while ($i < $rows) {
          //lets fetch our prayer request from the database.
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          $postedby=getuser ($row['posted_by']);
          //lets insert the prayerrequest into our working copy of this template.
          $WORK=insert_into_template ($ARTICLES, "{ARTICLETITLE}", stripslashes ($row['article_title']));
@@ -66,8 +66,8 @@ $CONTENT="";
          $CONTENT.=$WORK;
       }
       $sql="SELECT * FROM ".$list_prefix."articles;";
-      $result=mysql_query($sql);
-      $rows = mysql_num_rows($result);
+      $result=db_query($sql);
+      $rows = db_num_rows($result);
       $pages=($rows-($rows%$perpage))/$perpage; //this is the number of complete pages.
       if (($rows%$perpage) > 0)
          $pages++; //this will take care of incomplete pages.

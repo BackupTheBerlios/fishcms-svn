@@ -10,16 +10,16 @@
 //===common code that should be run each time=================================
 //for now we will hardwire our template location
 $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'template';";
-$result=mysql_query($sql);
+$result=db_query($sql);
 //lets determine what template to use.
 if (!$result)
    $templatedir="templates/default/";
 else {
-   $rows = mysql_num_rows($result);
+   $rows = db_num_rows($result);
    if ($rows == 0)
       $templatedir="templates/default/";
    else {
-      $row=mysql_fetch_array($result);
+      $row=db_fetch_array($result);
       $templatedir="templates/".$row['value']."/";
    }
 }

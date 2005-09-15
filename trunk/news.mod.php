@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 22, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -19,13 +19,13 @@ $CONTENT="";
  //lets calculate our query
    $sql="SELECT * FROM ".$list_prefix. "news ORDER BY `date` DESC LIMIT 0 , ".$perpage.";";
 //now lets show the prayerlist entries.
-   $result=mysql_query($sql);
-@   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+@   $rows = db_num_rows($result);
    if ($rows != 0) {
       $j=0;
       while ($j < $rows) {
          //lets fetch our prayer request from the database.
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          $postedby=getuser ($row['posted_by']);
          //lets insert the prayerrequest into our working copy of this template.
          $WORK=insert_into_template ($NEWS, "{NEWSTITLE}", stripslashes ($row['news_title']));

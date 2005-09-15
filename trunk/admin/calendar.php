@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 23, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:  September 4, 2005
+//* Last edit:  September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -17,15 +17,15 @@ $EVENTS="<select name='deletelist'>\r\n";
 $count=0;
    //now we will list weekly events
    $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `weekly` < '7';";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows=mysql_num_rows($result);
+      $rows=db_num_rows($result);
    else
       $rows=0;
    if ($rows > 0) {
       $i=0;
       while ($i < $rows) {
-         $row=mysql_fetch_array($result);
+         $row=db_fetch_array($result);
       //calculate the time
          $time=$row['time'];
          $hour=$time[0].$time[1];
@@ -47,15 +47,15 @@ $count=0;
    }
    //we will do the monthly events
    $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `monthly` NOT LIKE '';";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows=mysql_num_rows($result);
+      $rows=db_num_rows($result);
    else
       $rows=0;
    if ($rows > 0) {
       $i=0;
       while ($i < $rows) {
-         $row=mysql_fetch_array($result);
+         $row=db_fetch_array($result);
       //calculate the time
          $time=$row['time'];
          $hour=$time[0].$time[1];
@@ -77,15 +77,15 @@ $count=0;
    }
    //we will do yearly events
    $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `yearly` NOT LIKE '';";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows=mysql_num_rows($result);
+      $rows=db_num_rows($result);
    else
       $rows=0;
    if ($rows > 0) {
       $i=0;
       while ($i < $rows) {
-         $row=mysql_fetch_array($result);
+         $row=db_fetch_array($result);
       //calculate the time
          $time=$row['time'];
          $hour=$time[0].$time[1];
@@ -109,15 +109,15 @@ $count=0;
    }
    //now we will work scheduled events
    $sql="SELECT * FROM ".$list_prefix ."calendar WHERE `date` NOT LIKE '';";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows=mysql_num_rows($result);
+      $rows=db_num_rows($result);
    else
       $rows=0;
    if ($rows > 0) {
       $i=0;
       while ($i < $rows) {
-         $row=mysql_fetch_array($result);
+         $row=db_fetch_array($result);
       //calculate the time
          $time=$row['time'];
          $hour=$time[0].$time[1];
@@ -179,7 +179,7 @@ $CONTENT="";
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "delete")) { //we are deleting this event.
       if (isset ($HTTP_POST_VARS['delete_yes'])) {
          $sql="DELETE FROM `".$list_prefix ."calendar` WHERE `id` = '".$HTTP_POST_VARS['deletelist']."';";
-         $result=mysql_query($sql);
+         $result=db_query($sql);
       } else
          $CONTENT.="You must check the checkbox to confirm deleting this event.<BR>\r\n";
    }
@@ -187,25 +187,25 @@ $CONTENT="";
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "dow")) { //we are adding a event
       $utime=usertime ($HTTP_POST_VARS['hour'], $HTTP_POST_VARS['tmin'], $HTTP_POST_VARS['omin'], $HTTP_POST_VARS['$ampm']);
       $sql="INSERT INTO `".$list_prefix."calendar` ( `id` , `weekly` , `monthly` , `yearly` , `date` , `time` , `description` ) VALUES ( '', '".$HTTP_POST_VARS['dow']."', '', '', '', '".$utime."', '".$HTTP_POST_VARS['description']."' );";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
    }
    //lets see if we are adding a monthly event
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "dom")) { //we are adding a event
       $utime=usertime ($HTTP_POST_VARS['hour'], $HTTP_POST_VARS['tmin'], $HTTP_POST_VARS['omin'], $HTTP_POST_VARS['$ampm']);
       $sql="INSERT INTO `".$list_prefix."calendar` ( `id` , `weekly` , `monthly` , `yearly` , `date` , `time` , `description` ) VALUES ( '', '7', '".$HTTP_POST_VARS['dom']."', '', '', '".$utime."', '".$HTTP_POST_VARS['description']."' );";
-      $result=mysql_query($sql);   
+      $result=db_query($sql);   
    }
    //lets see if we are adding a yearly event
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "moy")) { //we are adding a event
       $utime=usertime ($HTTP_POST_VARS['hour'], $HTTP_POST_VARS['tmin'], $HTTP_POST_VARS['omin'], $HTTP_POST_VARS['$ampm']);
       $sql="INSERT INTO `".$list_prefix."calendar` ( `id` , `weekly` , `monthly` , `yearly` , `date` , `time` , `description` ) VALUES ( '', '7', '', '".$HTTP_POST_VARS['moy'].$HTTP_POST_VARS['domoy']."', '', '".$utime."', '".$HTTP_POST_VARS['description']."' );";
-      $result=mysql_query($sql);   
+      $result=db_query($sql);   
    }
    //lets see if we are adding a scheduled event
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "norm")) { //we are adding a event
       $utime=usertime ($HTTP_POST_VARS['hour'], $HTTP_POST_VARS['tmin'], $HTTP_POST_VARS['omin'], $HTTP_POST_VARS['$ampm']);
       $sql="INSERT INTO `".$list_prefix."calendar` ( `id` , `weekly` , `monthly` , `yearly` , `date` , `time` , `description` ) VALUES ( '', '7', '', '', '".$HTTP_POST_VARS['yearlist'].$HTTP_POST_VARS['month'].$HTTP_POST_VARS['day']."', '".$utime."', '".$HTTP_POST_VARS['description']."' );";
-      $result=mysql_query($sql);   
+      $result=db_query($sql);   
    }
    //lets draw our interface now.
    $CONTENT.=insert_into_template ($CALENDAR, "{DELETE_LIST}", listevents ());

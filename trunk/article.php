@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 17, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -21,10 +21,10 @@ $NAVLINKS=GETNAVLINKS ();
 function showarticle ($id) {
 global $list_prefix, $ARTICLE, $MAIN;
    $sql="SELECT * FROM ".$list_prefix ."articles WHERE id = '".$id ."';";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ($rows != 0) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
       $postedby=getuser ($row['posted_by']);
       //lets insert the prayerrequest into our working copy of this template.
       $WORK=insert_into_template ($ARTICLE, "{ARTICLETITLE}", stripslashes ($row['article_title']));

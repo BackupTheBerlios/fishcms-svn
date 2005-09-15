@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 9, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 23, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -67,7 +67,7 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $HTTP_GET_VARS, $MAIN;
       if (!is_numeric ($HTTP_GET_VARS['request']))
          die ("HACKING ATTEMPT");
       $sql="INSERT INTO ".$list_prefix."praise_list (request, praise, postdate, left_by, username) VALUES ('".$HTTP_GET_VARS['request']."', '".$HTTP_POST_VARS['praise']."', '".$req_date."',  '".addslashes($email)."', '".$username."');";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
          $CONTENT="Your praise been processed.<BR>\r\n";
       else {

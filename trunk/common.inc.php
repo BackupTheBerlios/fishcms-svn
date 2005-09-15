@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 7, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 22, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -32,11 +32,7 @@ $installer="install/";
 if (file_exists($installer))
    die ("SECURITY ERROR: You must remove the directory: install/");
 //Lets access the database
-@ $db=mysql_pconnect ($db_host, $db_username, $db_password);
-if (!$db)
-   die ("ERROR: UNABLE TO CONNECT TO DATABASE@<BR>\r\n");
-elseif (!mysql_select_db ($db_database))
-   die ("ERROR: UNABLE TO SELECT DATABASE!<BR>\r\n");
+include "db/mysql.inc.php";
 
 //common includes should go here.
 include "phpbbauth.php";
@@ -74,15 +70,15 @@ $LINKS=loadtmplate ("links");
 //lets get started
 //lets ask the db for all the links.
    $sql="SELECT * FROM ".$list_prefix."links WHERE `category` = '0' ORDER BY `order`;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
 //lets initialize our variables we will need to process the db results.
-   $rows = mysql_num_rows($result);
+   $rows = db_num_rows($result);
    $i=0;
    $NAVLINKS="";
 //let loop through the db results.
    while ($i < $rows) {
    //read a single result
-      $row=mysql_fetch_array($result);
+      $row=db_fetch_array($result);
    //insert that result into our links template.
       $WORK=insert_into_template ($LINKS, "{LINKURL}", $row['url']);
       $WORK=insert_into_template ($WORK, "{LINKTITLE}", $row['title']);
@@ -135,15 +131,15 @@ function getblocks ($blockset) {
 global $list_prefix;
 $BLOCK_TEMPLATE=loadtmplate ("block");
    $sql="SELECT * FROM `".$list_prefix."blocks` WHERE `blockset` = '".$blockset."' ORDER BY `order`;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows=0;
    $blocks=0;
    $CONTENT="";
    while ($blocks < $rows) {
-      $row=mysql_fetch_array($result);
+      $row=db_fetch_array($result);
       if ($row['name'] == "test"){ 
          $WORK=insert_into_template ($BLOCK_TEMPLATE, "{BLOCK_TITLE}", "TEST BLOCK");
          $WORK=insert_into_template ($WORK, "{BLOCK_CONTENT}", "this is a test block");
@@ -170,40 +166,40 @@ global $list_prefix;
    $WORK=insert_into_template ($WORK, "{APPLINKS}", GETPLAPPLINKS (getuserinfo ()));
 //lets process the sitename
    $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'sitename';";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ((isset($rows)) && ($rows > 0)) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
       $VALUE=$row['value'];
    } else
       $VALUE="localhost";         
    $WORK=insert_into_template ($WORK, "{SITENAME}", $VALUE);
 //lets process the site description
    $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'sitedescription';";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ((isset($rows)) && ($rows > 0)) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
       $VALUE=$row['value'];
    } else
       $VALUE="Another FishCMS site.";            
    $WORK=insert_into_template ($WORK, "{SITEDESCRIPTION}", $VALUE);
 //lets process the site copyright notice.
    $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'copyright';";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ((isset($rows)) && ($rows > 0)) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
       $VALUE=$row['value'];
    } else
       $VALUE="FishCMS is licensed under the GNU Public License<BR>\n&copy; 2005 by G.A. Heath and Michael Rice.";
    $WORK=insert_into_template ($WORK, "{COPYRIGHT}", $VALUE);
 //lets process the site email address.
    $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'email';";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ((isset($rows)) && ($rows > 0)) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
       $VALUE=$row['value'];
    } else
       $VALUE="FishCMS is licensed under the GNU Public License<BR>\n&copy; 2005 by G.A. Heath and Michael Rice.";
@@ -229,13 +225,13 @@ global  $list_prefix;
       $CATNAME="SYSTEM";
    else {
       $sql="SELECT * FROM `".$list_prefix."category` WHERE `id` = '".$catid."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows = mysql_num_rows($result);
+         $rows = db_num_rows($result);
       else
          $rows=0;
       if ($rows > 0) {
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          $CATNAME=$row['name'];
       } else
          $CATNAME="INVALID CATEGORY";

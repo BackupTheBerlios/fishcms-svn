@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 23, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 4, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 include "common.inc.php";
@@ -30,16 +30,16 @@ $EVENTS=loadtmplate("events");
          $month="0".(1*$month);
    //lets get the weekly events
       $sql="SELECT * FROM ".$list_prefix ."calendar WHERE (`weekly`='".dayofweek ($month, $day, $year)."' OR `monthly`='".$day. "' OR `yearly`='".$month.$day. "' OR `date`='".$year.$month.$day. "') ORDER BY `time`;";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows=mysql_num_rows($result);
+         $rows=db_num_rows($result);
       else
          $rows=0;
       if ($rows > 0) {
          $i=0;
          $WORK="";
          while ($i < $rows) {
-            $row=mysql_fetch_array($result);
+            $row=db_fetch_array($result);
          //calculate the time
             $time=$row['time'];
             if ($time[0] > 0)

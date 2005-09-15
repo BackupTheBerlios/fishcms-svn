@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 17, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 4, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -17,14 +17,14 @@ function articlelist () {
 global $list_prefix;
    $ARTICLELIST="<select name='article'>\r\n";
    $sql="SELECT * from `".$list_prefix."articles` WHERE 1;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows=0;
    $i=0;
    while ($i < $rows) {
-      $row=mysql_fetch_array($result);
+      $row=db_fetch_array($result);
       $ARTICLELIST.="<option value='".$row['id']."'>".$row['article_title']."</option>\r\n";
       $i++;
    }
@@ -39,14 +39,14 @@ function catlist ($cat) {
 global $list_prefix;
    $CATLIST="<select name='category'>\r\n";
    $sql="SELECT * from `".$list_prefix."category` WHERE 1;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows=0;
    $i=0;
    while ($i < $rows) {
-      $row=mysql_fetch_array($result);
+      $row=db_fetch_array($result);
       if ($cat == $row['id'])
          $CATLIST.="<option value='".$row['id']."' selected>".$row['name']."</option>\r\n";
       else
@@ -67,16 +67,16 @@ $ARTICLES=loadadmintmplate("articles");
    if (0 == strcmp ($HTTP_GET_VARS['mode'], "select")) { //if we are to edit an article
    //lets get the article from the db
       $sql="SELECT * FROM `".$list_prefix."articles` WHERE `id` = '".$HTTP_POST_VARS['article']."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
-         $rows = mysql_num_rows($result);
+         $rows = db_num_rows($result);
       else
          $rows=0;
       if ($rows == 0) { //lets make sure that the article exists
          $WORK=insert_into_template ($WORK, "{NEWCHECK}", "checked");
          $WORK=insert_into_template ($WORK, "{CATLIST}", catlist (0));
       } else { //if it does we will read it from the db and add it to our output.
-         $row=mysql_fetch_array($result);
+         $row=db_fetch_array($result);
          $WORK=insert_into_template ($WORK, "{ARTICLEID}", $row['id']);
          $WORK=insert_into_template ($WORK, "{CATLIST}", catlist ($row['category']));
          $WORK=insert_into_template ($WORK, "{ARTICLETITLE}", $row['article_title']);
@@ -91,7 +91,7 @@ $ARTICLES=loadadmintmplate("articles");
 //lets delete an article if its selected   
    if ((0 == strcmp ($HTTP_GET_VARS['mode'], "delete")) && (isset ($HTTP_POST_VARS['delete_yes']))) {
       $sql="DELETE FROM `".$list_prefix."articles` WHERE `id` = '".$HTTP_POST_VARS['article']."';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
    } elseif (0 == strcmp ($HTTP_GET_VARS['mode'], "delete"))
       $WORK="You must check the confirmation box to delete an article.<br>\r\n".$WORK;
    
@@ -100,10 +100,10 @@ $ARTICLES=loadadmintmplate("articles");
       $posted_by=$user['user_id'];
       if (isset ($HTTP_POST_VARS['newarticle'])) { //its a new article being saved.
          $sql="INSERT INTO ".$list_prefix."articles VALUES ('', '".addslashes ($HTTP_POST_VARS['articletitle'])."', '".addslashes ($HTTP_POST_VARS['teaser'])."', '".addslashes ($HTTP_POST_VARS['article'])."', '".$posted_by."', '".addslashes ($HTTP_POST_VARS['byline'])."', '".time ()."', '".$HTTP_POST_VARS['category']."');";
-         $result=mysql_query($sql);
+         $result=db_query($sql);
       } elseif (isset ($HTTP_POST_VARS['articleid'])) { //its an old article being saved
          $sql="UPDATE `".$list_prefix ."articles` SET `article_title` = '".addslashes ($HTTP_POST_VARS['articletitle'])."', `teaser` = '".addslashes ($HTTP_POST_VARS['teaser'])."', `article` = '".addslashes ($HTTP_POST_VARS['article'])."', `byline` = '".addslashes ($HTTP_POST_VARS['byline'])."', `category` = '".$HTTP_POST_VARS['category']."' WHERE `id` = '".$HTTP_POST_VARS['articleid']."';";
-         $result=mysql_query($sql);
+         $result=db_query($sql);
       } else
          $WORK="You must check the new article box to save a new article<br>\r\n".$WORK;
    }

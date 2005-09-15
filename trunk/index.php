@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 8, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -35,16 +35,16 @@ global $list_prefix;
 $MAIN=loadtmplate ("main"); 
 //lets get our module list from the DB.
    $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'indexmodule' ORDER BY `order`;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result) {
 //lets see how many modules we have and initialize our variables.
-      $rows=mysql_num_rows($result);
+      $rows=db_num_rows($result);
       $i=0;
       $CONTENT="";
       $perpage=3;
 //lets read our modules, load them, add their content to our main content.
       while ($i<$rows) {
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          include_once $row['value'].".mod.php";
          $CONTENT.="<H2>".$MOD['title']."</H2><BR>\r\n";
          $CONTENT.=$MOD['content'];
@@ -60,10 +60,10 @@ $MAIN=loadtmplate ("main");
 //===Main code================================================================
 //lets figure out how we are going to draw the index page.
    $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'index';";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result) {  //if its in the db we will go with the db's configured value.
-      $rows = mysql_num_rows($result);
-      $row = mysql_fetch_array($result);
+      $rows = db_num_rows($result);
+      $row = db_fetch_array($result);
       $action=$row['value'];
    } else //if for some reason the db doesn't know what we are supposed to do we will go with modules by default.
       $action="modules";

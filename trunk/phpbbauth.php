@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 14, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 12, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 
@@ -26,12 +26,12 @@ $user['email']="anonymous";
 //!!!code time!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //lets get the cookie name.
    $sql="select * from ".$table_prefix."config WHERE config_name = 'cookie_name'";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ($rows != 1) //if there is more than 1 result or if there is no result we can't trust the db.
       return $user;
    else
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
    $cookiename=$row['config_value'];
    if (!isset($HTTP_COOKIE_VARS[$cookiename."_data"]))
       return $user;
@@ -42,14 +42,14 @@ $user['email']="anonymous";
    $autologinid=$sessiondata['autologinid'];
 //now lets read the users info from the database.
    $query="select * from ".$table_prefix."users WHERE user_id = ".$userid;
-   $result=mysql_query($query);
+   $result=db_query($query);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows = 0;
    if ($rows != 1)//we must have exactly 1 user with this userid number.
       return $user;
-   $userdata = mysql_fetch_array($result);
+   $userdata = db_fetch_array($result);
 //now lets compare the user info to the database info.
    if ($autologinid != $userdata['user_password'])
       return $user;
@@ -77,12 +77,12 @@ $user['email']="anonymous";
 //!!!code time!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //lets search the database for one username and encrypted password that match ours.
    $sql="select * from ".$table_prefix."users WHERE username = '".$username."' AND user_password = '".$pass."';";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ($rows != 1) //if there is more than 1 result or if there is no result we can't trust the db.
       return $user;
    else
-      $userdata = mysql_fetch_array($result);
+      $userdata = db_fetch_array($result);
 //now we will determine if the user is an administrator.
    if ($userdata['user_level'] == "1")
       $user['admin'] = 1;
@@ -94,12 +94,12 @@ $user['email']="anonymous";
    $sessiondata['userid']=$userdata['user_id'];
    $sessiondata['autologinid']=$userdata['user_password'];
    $sql="select * from ".$table_prefix."config WHERE config_name = 'cookie_name'";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ($rows != 1) //if there is more than 1 result or if there is no result we can't trust the db.
       return $user;
    else
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
    $cookiename=$row['config_value'];
    if ((0 != strcmp ($user['username'], "anonymous")) && ($user['admin'] == 1)) {
       $cookiedata=serialize($sessiondata);
@@ -116,10 +116,10 @@ $user['email']="anonymous";
 function getuser ($uid) {
 global $table_prefix;
    $sql="select * from ".$table_prefix."users WHERE user_id = ".$uid;
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ($rows > 0) {
-      $userdata = mysql_fetch_array($result);
+      $userdata = db_fetch_array($result);
       return $userdata['username'];
    } else {
       return "anonymous";
@@ -144,14 +144,14 @@ $cookiename="phpbbauth_admincookie";
    $autologinid=$sessiondata['autologinid'];
 //now lets read the users info from the database.
    $query="select * from ".$table_prefix."users WHERE user_id = ".$userid;
-   $result=mysql_query($query);
+   $result=db_query($query);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       return $user;
    if ($rows != 1)//we must have exactly 1 user with this userid number.
       $admin=0;
-   $userdata = mysql_fetch_array($result);
+   $userdata = db_fetch_array($result);
 //now lets compare the user info to the database info.
    if ($autologinid != $userdata['user_password'])
       return $user;
@@ -192,12 +192,12 @@ $user['user_id']=0;
 $cookiename="phpbbauth_admincookie";
 //now lets verify our user is loggedin
    $sql="select * from ".$table_prefix."users WHERE username = '".$username."' AND user_password = '".$password."';";
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    if ($rows != 1) //if there is more than 1 result or if there is no result we can't trust the db.
       return 0;
    else
-      $userdata = mysql_fetch_array($result);
+      $userdata = db_fetch_array($result);
 //now we will determine if the user is an administrator.
    if ($userdata['user_level'] == "1")
       $user['admin'] = 1;

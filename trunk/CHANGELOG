@@ -39,3 +39,11 @@ September 4, 2005:  began to move common code in admin section into
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 September 4, 2005:  RELEASED FishCMS Version 0.2.1 (guppy+)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+September 10, 2005: Began to write a wrapper for the mysql functions.
+September 11, 2005: Completed mysql wrapper, converted main site files,
+                    admin files, and block files to use wrapper.
+September 11, 2005: Began to rewrite the installer.
+September 14, 2005: Completed pgsql wrapper.
+September 15, 2005: Completed installer, decided to include work for 0.3.0
+                    thru 0.5.0 into version 0.3.0.
+

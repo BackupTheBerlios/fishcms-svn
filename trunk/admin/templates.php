@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 15, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:  September 4, 2005
+//* Last edit:  September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -39,7 +39,7 @@ $TEMPLATES=loadadmintmplate("templates");
    if (isset ($HTTP_GET_VARS['set'])) { //if we are supposed to set the template
       //set the template here
       $sql="UPDATE `".$list_prefix ."config` SET `value` = '".$HTTP_POST_VARS['template']."' WHERE `key` = 'template';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
          $CONTENT="The theme was successfully changed to ".$HTTP_POST_VARS['template']."<BR>\r\n";
       else
@@ -50,15 +50,15 @@ $TEMPLATES=loadadmintmplate("templates");
    } else { //else we will draw the form for the user to change the template.
       //first lets read the template from the configuration
       $sql="SELECT * FROM ".$list_prefix ."config WHERE `Key` = 'template';";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if (!$result)
          $template="default";
       else {
-         $rows = mysql_num_rows($result);
+         $rows = db_num_rows($result);
          if ($rows == 0)
             $template="default";
          else {
-            $row=mysql_fetch_array($result);
+            $row=db_fetch_array($result);
             $template=$row['value'];
          }
       }

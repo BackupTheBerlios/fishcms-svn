@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -19,13 +19,13 @@ $CONTENT="";
  //lets setup our query
   $sql="SELECT * FROM ".$list_prefix."prayer_list WHERE `expired` = '0' LIMIT 0, ".$perpage.";";
 //now lets show the prayerlist entries.
-   $result=mysql_query($sql);
-@   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+@   $rows = db_num_rows($result);
    if ($rows != 0) {
       $j=0;
       while ($j < $rows) {
          //lets fetch our prayer request from the database.
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          //lets insert the prayerrequest into our working copy of this template.
          $WORK=insert_into_template ($PRAYERLISTMOD, "{REQUESTFOR}", striphtml ($row['request_for']));
          $WORK=insert_into_template ($WORK, "{REQUEST}", striphtml ($row['request']));
@@ -48,10 +48,10 @@ function mailuser ($email, $request) {
 global $list_prefix;
 //lets figure out who to send the message as.
    $sql="SELECT * FROM ".$list_prefix."prayer_list WHERE `key` = 'email';";
-   $result=mysql_query($sql);
-   @ $rows=mysql_num_rows($result);
+   $result=db_query($sql);
+   @ $rows=db_num_rows($result);
    if($rows > 0) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
    } else {
       $row['value']="DBERROR@SOMEHOST.TLD";
    }
@@ -75,18 +75,18 @@ global $list_prefix;
    //start main code here.
    //lets search for request that expire prior to right now.
    $sql="SELECT * FROM ".$list_prefix."prayer_list WHERE `expired` = '0' AND `expiredate` < '".time ()."';";
-   $result=mysql_query($sql);
-   @ $rows=mysql_num_rows($result);
+   $result=db_query($sql);
+   @ $rows=db_num_rows($result);
    $j=0;
    while ($j < $rows) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
       //mail the user here if they are not anonymous
       if (0 != strcmp ($row['requested_by'], 'anonymous')) 
          mailuser ($row['requested_by'], $row);
 //We need to change this to make the request historical rather than deleting it.
       $sql = "UPDATE ".$list_prefix."prayer_list SET `expired` = '1' WHERE `id`='".$row['id']."';";
 //end of change.
-      $result2 = mysql_query($sql);
+      $result2 = db_query($sql);
       $j++;
    }
    $MOD['title']="Prayer Request";

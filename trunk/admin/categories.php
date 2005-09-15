@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 14, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:  September 4, 2005
+//* Last edit:  September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -20,7 +20,7 @@ $CATEGORIES=loadadmintmplate("categories");
       if (isset ($HTTP_POST_VARS['delete_yes']))
          if ($HTTP_POST_VARS['category'] > 0) {
             $sql="DELETE FROM `".$list_prefix ."category` WHERE `id` = ".$HTTP_POST_VARS['category'].";";
-            $result=mysql_query($sql);
+            $result=db_query($sql);
             if ($result)
                $CONTENT="The selected category has been deleted.<BR><BR>";
             else
@@ -35,21 +35,21 @@ $CATEGORIES=loadadmintmplate("categories");
    } elseif (0 == strcmp ($HTTP_GET_VARS['mode'], "add")) {
       //we will do a search of the categories in the db in reverse sort on order.
       $sql="SELECT * FROM `".$list_prefix ."category` ORDER BY `order` DESC limit 1;";
-      $result=mysql_query($sql);
-      $rows = mysql_num_rows($result);
+      $result=db_query($sql);
+      $rows = db_num_rows($result);
       //we will add +1 to that for the new entry's order.
       if ($rows == 0)
          $order=1;
       else {
       //we will add +1 to that for the new entry's order.
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          $order=$row['order']+1;
       }
       //then we will insert the new category and its order value into the db.
       //we will then report success or failure and draw the page.
       if (isset ($HTTP_POST_VARS['catname'])) {
          $sql="INSERT INTO ".$list_prefix."category VALUES ('', '".$HTTP_POST_VARS['catname']."', '".$order."');";
-         $result=mysql_query($sql);
+         $result=db_query($sql);
          if ($result)
             $CONTENT="The category ".$HTTP_POST_VARS['catname']." has been added to the database<BR><BR>\r\n";
          else
@@ -64,13 +64,13 @@ $CATEGORIES=loadadmintmplate("categories");
    //first we must make sure that our category is valid and not category 0
       if ($HTTP_POST_VARS['category'] > 0) {
          $sql="SELECT * FROM `".$list_prefix ."category` WHERE `id` = '".$HTTP_POST_VARS['category']."';";
-         $result=mysql_query($sql);
+         $result=db_query($sql);
          if ($result)
-            $rows = mysql_num_rows($result);
+            $rows = db_num_rows($result);
          else
             $rows=0;
          if ($rows > 0) {
-            $row = mysql_fetch_array($result);
+            $row = db_fetch_array($result);
          //lets figure out if we need to change the name or leave it the same.
             if (isset ($HTTP_POST_VARS['catname']) && ($HTTP_POST_VARS['catname'] != ""))
                $name=$HTTP_POST_VARS['catname'];
@@ -80,29 +80,29 @@ $CATEGORIES=loadadmintmplate("categories");
             if (isset ($HTTP_POST_VARS['position'])) {
                if (0 == strcmp ($HTTP_POST_VARS['position'], "up")) {
                   $sql="SELECT * FROM ".$list_prefix ."category WHERE `order` < '".$row['order']."' ORDER BY `order` DESC;";
-                  $result=mysql_query($sql);
+                  $result=db_query($sql);
                   if ($result)
-                     $rows = mysql_num_rows($result);
+                     $rows = db_num_rows($result);
                   else
                      $rows=0;
                   if ($rows > 0) {
-                     $row2 = mysql_fetch_array($result);
+                     $row2 = db_fetch_array($result);
                      $sql="UPDATE ".$list_prefix ."category SET `order` = '".$row['order']."' WHERE `id` = '".$row2['id']."';";
-                     $result=mysql_query($sql);
+                     $result=db_query($sql);
                      $order=$row2['order'];
                   } else
                      $order=$row['order'];
                } elseif (0 == strcmp ($HTTP_POST_VARS['position'], "down")) {
                   $sql="SELECT * FROM ".$list_prefix ."category WHERE `order` > '".$row['order']."' ORDER BY `order`;";
-                  $result=mysql_query($sql);
+                  $result=db_query($sql);
                   if ($result)
-                     $rows = mysql_num_rows($result);
+                     $rows = db_num_rows($result);
                   else
                      $rows=0;
                   if ($rows > 0) {
-                     $row2 = mysql_fetch_array($result);
+                     $row2 = db_fetch_array($result);
                      $sql="UPDATE ".$list_prefix ."category SET `order` = '".$row['order']."' WHERE `id` = '".$row2['id']."';";
-                     $result=mysql_query($sql);
+                     $result=db_query($sql);
                      $order=$row2['order'];
                   } else
                      $order=$row['order'];
@@ -113,7 +113,7 @@ $CATEGORIES=loadadmintmplate("categories");
             $sql="UPDATE `".$list_prefix ."category` SET ";
             $sql.="`name` = '".$name."', `order` = '".$order."' ";
             $sql.="WHERE `id` = '".$HTTP_POST_VARS['category']."';";
-            $result=mysql_query($sql);
+            $result=db_query($sql);
             if ($result)
                $CONTENT="The changes made have been saved.<BR><BR>\r\n";
             else
@@ -131,14 +131,14 @@ $CATEGORIES=loadadmintmplate("categories");
       //to delete a category the user must choose it from a list, enter the name in a box and click "Delete"
       $CONTENT="<select name='category'>";
       $sql="SELECT * FROM ".$list_prefix ."category WHERE `id` > 0 ORDER BY `order`;";
-      $result=mysql_query($sql);
-      $rows = mysql_num_rows($result);
+      $result=db_query($sql);
+      $rows = db_num_rows($result);
       if ($rows == 0)
          $CONTENT.="<option value='-'>No categories found</option>";
       else {
          $i=0;
          while ($i<$rows) {
-            $row = mysql_fetch_array($result);
+            $row = db_fetch_array($result);
             $CONTENT.="<option value='".$row['id']."'>".$row['name']."</option>";
             $i++;
          }

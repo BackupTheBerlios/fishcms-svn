@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 22, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===Functions================================================================
@@ -16,16 +16,16 @@ $CONTENT="";
  //lets calculate our query
    $sql="SELECT * FROM `".$list_prefix. "articles` ORDER BY `date` DESC LIMIT 0 , ".$perpage.";";
 //now lets show the prayerlist entries.
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows = 0;
    if ($rows != 0) {
       $j=0;
       while ($j < $rows) {
          //lets fetch our prayer request from the database.
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          $postedby=getuser ($row['posted_by']);
          //lets insert the prayerrequest into our working copy of this template.
          $WORK=insert_into_template ($ARTICLES, "{ARTICLETITLE}", stripslashes ($row['article_title']));

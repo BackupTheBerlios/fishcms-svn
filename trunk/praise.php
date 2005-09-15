@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 8, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 23, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -42,16 +42,16 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
    else
       $sql.=";";
 //now lets show the prayerlist entries.
-   $result=mysql_query($sql);
-   $rows = mysql_num_rows($result);
+   $result=db_query($sql);
+   $rows = db_num_rows($result);
    $sql="SELECT * FROM ".$list_prefix."prayer_list WHERE `id` = '".$HTTP_GET_VARS['request']."';";
-   $result2=mysql_query($sql);
-   $rows2 = mysql_num_rows($result2);
+   $result2=db_query($sql);
+   $rows2 = db_num_rows($result2);
    //prayer request shown here.
    if ($rows2 != 1) 
       $CONTENT="ERROR: Unable to locate the exact prayer request.<BR>\r\n";
    else { 
-      $row = mysql_fetch_array($result2);
+      $row = db_fetch_array($result2);
       $WORK=insert_into_template ($PRAYERLIST, "{REQUESTFOR}", $row['request_for']);
       $WORK=insert_into_template ($WORK, "{REQUEST}", $row['request']);
       $WORK=insert_into_template ($WORK, "{REQUESTID}", $row['id']);
@@ -62,7 +62,7 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
    if ($rows != 0) {
       $i=0;
       while ($i < $rows) {
-         $row = mysql_fetch_array($result);
+         $row = db_fetch_array($result);
          $WORK=insert_into_template ($PRAISE, "{PRAISE}", $row['praise']); 
          if ($user['admin'] == 1)
             $WORK=insert_into_template ($WORK, "{DELETE}", "<a href='praise.php?delete=".$row['id']."'>Delete</a>");
@@ -73,8 +73,8 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
       }
       //lets work on multiple pages if need be.
       $sql="SELECT * FROM ".$list_prefix."praise_list  WHERE `request` = '".$HTTP_GET_VARS['request']."';";
-      $result=mysql_query($sql);
-      $rows = mysql_num_rows($result);
+      $result=db_query($sql);
+      $rows = db_num_rows($result);
       $pages=($rows-($rows%$perpage))/$perpage; //this is the number of complete pages.
       if (($rows%$perpage) > 0)
          $pages++; //this will take care of incomplete pages.
@@ -112,7 +112,7 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
 function delete_praise ($id) {
 global $list_prefix, $MAIN;
    $sql="DELETE FROM ".$list_prefix."praise_list WHERE `id`=".$id.";";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)
       $CONTENT="The selected request has been deleted.<br />\r\n";
    else

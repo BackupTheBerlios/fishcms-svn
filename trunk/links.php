@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 8, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -19,19 +19,19 @@ $CATEGORIES=loadtmplate ("linkcats");
 $LINKS=loadtmplate ("linklist");
 $WORK="";
    $sql="SELECT * FROM `".$list_prefix ."category` WHERE `id` > '0' ORDER BY `order`;";
-   $result=mysql_query($sql);
+   $result=db_query($sql);
    if ($result)  //if its in the db we will go with the db's configured value.
-      $rows = mysql_num_rows($result);
+      $rows = db_num_rows($result);
    else
       $rows = 0;
    $i=0;
    while ($i < $rows) {
-      $row = mysql_fetch_array($result);
+      $row = db_fetch_array($result);
       $i++;
       $sql="SELECT * FROM `".$list_prefix ."links` WHERE `category` = '".$row['id']."' ORDER BY `order`;";
-      $result2=mysql_query($sql);
+      $result2=db_query($sql);
       if ($result2)  //if its in the db we will go with the db's configured value.
-         $rows2 = mysql_num_rows($result2);
+         $rows2 = db_num_rows($result2);
       else
          $rows2 = 0;
       $j = 0;
@@ -39,7 +39,7 @@ $WORK="";
          $WORK.=insert_into_template ($CATEGORIES, "{CATEGORY}", $row['name']);
       $CONTENT="";
       while ($j < $rows2) {
-         $row2 = mysql_fetch_array($result2);
+         $row2 = db_fetch_array($result2);
          $CONTENT.=insert_into_template ($LINKS, "{LINKURL}", $row2['url']);
          $CONTENT=insert_into_template ($CONTENT, "{LINKTITLE}", $row2['title']);
          $j++;

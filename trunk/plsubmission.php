@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 7, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	August 13, 2005
+//* Last edit:	September 11, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -82,7 +82,7 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $MAIN;
             break; 
       }
       $sql="INSERT INTO ".$list_prefix."prayer_list (request_for, request, postdate, expiredate, requested_by, username) VALUES ('".$HTTP_POST_VARS['request_for']."', '".$HTTP_POST_VARS['request']."', '".$req_date."', '".$expire."', '".addslashes($email)."', '".addslashes($username)."');";
-      $result=mysql_query($sql);
+      $result=db_query($sql);
       if ($result)
          $WORK="Your prayer request has been processed.<BR>\r\n";
       else {
