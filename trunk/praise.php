@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 8, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 11, 2005
+//* Last edit:	September 15, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -38,7 +38,7 @@ global $HTTP_GET_VARS, $user, $list_prefix, $MAIN, $LINK, $PRAISE, $PRAYERLIST;
  //lets calculate our query
   $sql="SELECT * FROM ".$list_prefix."praise_list WHERE `request` = '".$HTTP_GET_VARS['request']."'";
    if ($onepage == 0)
-      $sql.=" LIMIT ".$start." , ".$perpage.";";
+      $sql.=" LIMIT ".$start.",".$perpage.";";
    else
       $sql.=";";
 //now lets show the prayerlist entries.

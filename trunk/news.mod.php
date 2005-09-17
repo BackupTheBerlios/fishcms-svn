@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 11, 2005
+//* Last edit:	September 15, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -17,10 +17,13 @@ global $list_prefix;
 $NEWS=loadtmplate ("news.mod");
 $CONTENT="";
  //lets calculate our query
-   $sql="SELECT * FROM ".$list_prefix. "news ORDER BY `date` DESC LIMIT 0 , ".$perpage.";";
+   $sql="SELECT * FROM ".$list_prefix. "news ORDER BY `date` DESC LIMIT 0,".$perpage.";";
 //now lets show the prayerlist entries.
    $result=db_query($sql);
-@   $rows = db_num_rows($result);
+   if ($result)
+      $rows = db_num_rows($result);
+   else
+      $rows = 0;
    if ($rows != 0) {
       $j=0;
       while ($j < $rows) {

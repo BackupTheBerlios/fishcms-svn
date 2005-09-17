@@ -18,7 +18,7 @@ $MAIN=loadtmplate ("main");
 $CATEGORIES=loadtmplate ("linkcats");
 $LINKS=loadtmplate ("linklist");
 $WORK="";
-   $sql="SELECT * FROM `".$list_prefix ."category` WHERE `id` > '0' ORDER BY `order`;";
+   $sql="SELECT * FROM ".$list_prefix ."category WHERE `id` > '0' ORDER BY `order`;";
    $result=db_query($sql);
    if ($result)  //if its in the db we will go with the db's configured value.
       $rows = db_num_rows($result);
@@ -28,7 +28,7 @@ $WORK="";
    while ($i < $rows) {
       $row = db_fetch_array($result);
       $i++;
-      $sql="SELECT * FROM `".$list_prefix ."links` WHERE `category` = '".$row['id']."' ORDER BY `order`;";
+      $sql="SELECT * FROM ".$list_prefix ."links WHERE `category` = '".$row['id']."' ORDER BY `order`;";
       $result2=db_query($sql);
       if ($result2)  //if its in the db we will go with the db's configured value.
          $rows2 = db_num_rows($result2);

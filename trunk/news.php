@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 11, 2005
+//* Last edit:	September 15, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -42,7 +42,7 @@ $CONTENT="";
    if ($category != 0)
       $sql.=" WHERE category = '". $category."'";
    if ($onepage == 0)
-      $sql.=" ORDER BY `date` DESC LIMIT ".$start." , ".$perpage.";";
+      $sql.=" ORDER BY `date` DESC LIMIT ".$start.",".$perpage.";";
   else
       $sql.=" ORDER BY `date` DESC;";
 //now lets show the prayerlist entries.

@@ -17,7 +17,7 @@
 //lets access the db first.
 @ $db=mysql_pconnect ($db_host, $db_username, $db_password);
 if (!$db)
-   die ("ERROR: UNABLE TO CONNECT TO DATABASE@<BR>\r\n");
+   die ("ERROR: UNABLE TO CONNECT TO DATABASE!<BR>\r\n");
 elseif (!mysql_select_db ($db_database))
    die ("ERROR: UNABLE TO SELECT DATABASE!<BR>\r\n");
 //now lets create our mysql wrappers.

@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 7, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 11, 2005
+//* Last edit:	September 15, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -32,7 +32,7 @@ $installer="install/";
 if (file_exists($installer))
    die ("SECURITY ERROR: You must remove the directory: install/");
 //Lets access the database
-include "db/mysql.inc.php";
+include ("db/".$db_type.".inc.php");
 
 //common includes should go here.
 include "phpbbauth.php";
@@ -130,7 +130,7 @@ $APPLINKS="";
 function getblocks ($blockset) {
 global $list_prefix;
 $BLOCK_TEMPLATE=loadtmplate ("block");
-   $sql="SELECT * FROM `".$list_prefix."blocks` WHERE `blockset` = '".$blockset."' ORDER BY `order`;";
+   $sql="SELECT * FROM ".$list_prefix."blocks WHERE `blockset` = '".$blockset."' ORDER BY `order`;";
    $result=db_query($sql);
    if ($result)
       $rows = db_num_rows($result);
@@ -224,7 +224,7 @@ global  $list_prefix;
    if ($catid == 0)
       $CATNAME="SYSTEM";
    else {
-      $sql="SELECT * FROM `".$list_prefix."category` WHERE `id` = '".$catid."';";
+      $sql="SELECT * FROM ".$list_prefix."category WHERE `id` = '".$catid."';";
       $result=db_query($sql);
       if ($result)
          $rows = db_num_rows($result);

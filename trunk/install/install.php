@@ -393,55 +393,55 @@ include ($INSTALLDIR."db/".$db_type.".inc.php"); //this should load the db "laye
 printf ("Inserting default database values: ");
 $errors=0;
 $sql="INSERT INTO ".$list_prefix."config VALUES ('template', 'default');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."config VALUES ('index', 'modules');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."config VALUES ('indexmodule', 'articles', '1');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."config VALUES ('indexmodule', 'news', '2');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."config VALUES ('indexmodule', 'prayerlist', '3');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."config VALUES ('url', '".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "", $_SERVER['PHP_SELF'])."');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."config VALUES ('version', '".$VERSION."');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."news VALUES ('1', 'Welcome to FishCMS', 'The developers would like to thank you for trying <a href=\'http://fishcms.com\'>FishCMS</a>.', 'FishCMS is being developed by the webmasters at <a href=\'http://believewith.us/\'>BelieveWith.US</a>.', '2', 'FishCMS developers', '".time ()."', '1');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."articles VALUES ('1', 'A new FishCMS website', '".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "", $_SERVER['PHP_SELF'])." has just installed <a href=\'http://fishcms.com\'>FishCMS</a>...', '<a href=\'http://fishcms.com\'>FishCMS</a> is being developed by the webmasters at <a href=\'http://believewith.us/\'>BelieveWith.US</a>. and is distributed under the GNU Public License (AKA GPL).', '2', 'FishCMS developers', '".time ()."', '1');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."links VALUES ('1', '0', 'Home', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "", $_SERVER['PHP_SELF'])."', '1');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."links VALUES ('2', '0', 'Prayer List', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "prayerlist.php", $_SERVER['PHP_SELF'])."', '2');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."links VALUES ('3', '0', 'News', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "news.php", $_SERVER['PHP_SELF'])."', '3');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."links VALUES ('4', '0', 'Articles', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "articles.php", $_SERVER['PHP_SELF'])."', '4');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."links VALUES ('5', '0', 'Links', 'http://".$_SERVER['HTTP_HOST'].str_replace ("install/install.php", "links.php", $_SERVER['PHP_SELF'])."', '5');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."category VALUES ('6', 'General', '1');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."blocks VALUES ('1', 'verse_of_the_day', '1', '1');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 $sql="INSERT INTO ".$list_prefix."blocks VALUES ('2', 'calendar', '1', '2');";
-if (db_query ($sql))
+if (db_query ($sql) == 0)
    $errors++;
 //lets report our results.
    if ($errors == 0)
@@ -452,19 +452,19 @@ if (db_query ($sql))
    $errors=0;
    printf ("Inserting user configured values: ");
    $sql="INSERT INTO ".$list_prefix."config VALUES ('sitename', '".$HTTP_POST_VARS['sitename']."');";
-   if (db_query ($sql))
+   if (db_query ($sql) == 0)
       $errors++;
    $sql="INSERT INTO ".$list_prefix."config VALUES ('sitedescription', '".$HTTP_POST_VARS['sitedescription']."');";
-   if (db_query ($sql))
+   if (db_query ($sql) == 0)
       $errors++;
    $sql="INSERT INTO ".$list_prefix."config VALUES ('email', '".$HTTP_POST_VARS['admin_email']."');";
-   if (db_query ($sql))
+   if (db_query ($sql) == 0)
       $errors++;
    $sql="INSERT INTO ".$list_prefix."config VALUES ('copyright', '".addslashes ($HTTP_POST_VARS['copyright'])."');";
-   if (db_query ($sql))
+   if (db_query ($sql) == 0)
       $errors++;
    $sql="INSERT INTO ".$list_prefix."config VALUES ('authtype', '".addslashes ($HTTP_POST_VARS['authtype'])."');";
-   if (db_query ($sql))
+   if (db_query ($sql) == 0)
       $errors++;
    //here we will add support for our FishCMS auth module.
 //----------------------------------------------------------------------------

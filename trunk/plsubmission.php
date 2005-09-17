@@ -81,7 +81,20 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $MAIN;
                $expire=$req_date+(60 * 60 *24 * 365.25);
             break; 
       }
-      $sql="INSERT INTO ".$list_prefix."prayer_list (request_for, request, postdate, expiredate, requested_by, username) VALUES ('".$HTTP_POST_VARS['request_for']."', '".$HTTP_POST_VARS['request']."', '".$req_date."', '".$expire."', '".addslashes($email)."', '".addslashes($username)."');";
+      //we need to find out what the next id number is, add one to it, and then add it to the sql insert.
+      $sql="SELECT * FROM ".$list_prefix."prayer_list ORDER BY `id` DESC;";
+      $result=db_query($sql);
+      if ($result)
+         $rows=db_num_rows($result);
+      else
+         $rows=0;
+      if ($rows > 0) {
+         $row = db_fetch_array($result);
+         $idval=$row['id']+1;
+      } else
+         $idval=1;
+      //lets do the sql insert
+      $sql="INSERT INTO ".$list_prefix."prayer_list (id, request_for, request, postdate, expiredate, requested_by, username) VALUES ('".$idval."', '".$HTTP_POST_VARS['request_for']."', '".$HTTP_POST_VARS['request']."', '".$req_date."', '".$expire."', '".addslashes($email)."', '".addslashes($username)."');";
       $result=db_query($sql);
       if ($result)
          $WORK="Your prayer request has been processed.<BR>\r\n";

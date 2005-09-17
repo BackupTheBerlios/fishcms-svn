@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	August 1, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 11, 2005
+//* Last edit:	September 15, 2005
 //****************************************************************************
 
 //===Functions================================================================
@@ -14,7 +14,7 @@ global $list_prefix;
 $ARTICLES=loadtmplate ("articles.mod");
 $CONTENT="";
  //lets calculate our query
-   $sql="SELECT * FROM `".$list_prefix. "articles` ORDER BY `date` DESC LIMIT 0 , ".$perpage.";";
+   $sql="SELECT * FROM ".$list_prefix. "articles ORDER BY `date` DESC LIMIT 0,".$perpage.";";
 //now lets show the prayerlist entries.
    $result=db_query($sql);
    if ($result)

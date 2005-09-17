@@ -16,11 +16,10 @@ if (!$db)
 //now lets declare our wrapper functions.
 //***function db_query ($query)************************************************
 function db_query ($query) {
+$query= str_replace("`", "\"", $query);
 $query= preg_replace("/LIMIT ([0-9]+),([ 0-9]+)/", "LIMIT \\2 OFFSET \\1", $query);
-//   echo $query."<br>";
-   return !@pg_query($query);
-//   printf ("%d pgsql query: %s<BR><BR>\r\n", $t, $query);
-//   return $t;
+//echo $query."<br>";
+   return @pg_query($query);
 }
 
 //***function db_num_rows($result)*********************************************
@@ -30,7 +29,7 @@ return @pg_num_rows ($result);
 
 //***funtion db_fetch_array($result)*******************************************
 function db_fetch_array($result) {
-return @pg_fetch_row ($result);
+return pg_fetch_array ($result);
 }
 
 ?>

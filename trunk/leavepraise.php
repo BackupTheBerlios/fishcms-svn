@@ -66,7 +66,20 @@ global $logged_in, $user, $HTTP_POST_VARS, $list_prefix, $HTTP_GET_VARS, $MAIN;
       $req_date=time();
       if (!is_numeric ($HTTP_GET_VARS['request']))
          die ("HACKING ATTEMPT");
-      $sql="INSERT INTO ".$list_prefix."praise_list (request, praise, postdate, left_by, username) VALUES ('".$HTTP_GET_VARS['request']."', '".$HTTP_POST_VARS['praise']."', '".$req_date."',  '".addslashes($email)."', '".$username."');";
+      //we need to find out what the next id number is, add one to it, and then add it to the sql insert.
+      $sql="SELECT * FROM ".$list_prefix."praise_list ORDER BY `id` DESC;";
+      $result=db_query($sql);
+      if ($result)
+         $rows=db_num_rows($result);
+      else
+         $rows=0;
+      if ($rows > 0) {
+         $row = db_fetch_array($result);
+         $idval=$row['id']+1;
+      } else
+         $idval=1;
+      //lets do the sql insert
+      $sql="INSERT INTO ".$list_prefix."praise_list (id, request, praise, postdate, left_by, username) VALUES ('".$idval."', '".$HTTP_GET_VARS['request']."', '".$HTTP_POST_VARS['praise']."', '".$req_date."',  '".addslashes($email)."', '".$username."');";
       $result=db_query($sql);
       if ($result)
          $CONTENT="Your praise been processed.<BR>\r\n";

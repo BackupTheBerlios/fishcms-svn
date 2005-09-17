@@ -33,17 +33,7 @@ Rework admin Control panel, clean up the appearence, make it easier to use.
 ******************************************************************************
 Work in progress.
 
-[admin panel]
-   create admin panel (in progress).
-
 
 [new functions/pages]
-   create links page.
    create admin tool for making custom pages.
-   create .inc.php file for blocks.
-   create a calender block.
-   create a verse of the day block.
-   create a biblegateway search block.
 
-[all page generating files]
-   add support for above mentioned blocks to filltemplate in common.inc.php

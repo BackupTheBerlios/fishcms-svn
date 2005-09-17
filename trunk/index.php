@@ -59,13 +59,13 @@ $MAIN=loadtmplate ("main");
 }
 //===Main code================================================================
 //lets figure out how we are going to draw the index page.
-   $sql="SELECT * FROM ".$list_prefix ."config WHERE `key` = 'index';";
+   $sql="SELECT * FROM `".$list_prefix ."config` WHERE `key` = 'index';";
    $result=db_query($sql);
    if ($result) {  //if its in the db we will go with the db's configured value.
       $rows = db_num_rows($result);
       $row = db_fetch_array($result);
       $action=$row['value'];
-   } else //if for some reason the db doesn't know what we are supposed to do we will go with modules by default.
+ } else //if for some reason the db doesn't know what we are supposed to do we will go with modules by default.
       $action="modules";
 //now lets redirect the user or draw the content from the modules.
    if (strcmp ($action, "modules") != 0)

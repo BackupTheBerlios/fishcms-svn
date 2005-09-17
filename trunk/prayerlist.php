@@ -4,7 +4,7 @@
 //* Author:	G.A. Heath
 //* Date: 	July 7, 2005.
 //* License:	GNU Public License (GPL)
-//* Last edit:	September 11, 2005
+//* Last edit:	September 15, 2005
 //****************************************************************************
 
 //===common code that should be run each time=================================
@@ -40,7 +40,7 @@ $CONTENT="";
  //lets calculate our query
    $sql="SELECT * FROM ".$list_prefix."prayer_list WHERE `expired` = '0'";
    if ($onepage == 0)
-      $sql.=" LIMIT ".$start." , ".$perpage.";";
+      $sql.=" LIMIT ".$start.",".$perpage.";";
     else
       $sql.=";";
 //now lets show the prayerlist entries.
